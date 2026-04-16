@@ -3,5 +3,88 @@
   --azul_grisaceo_medio: #4A5270;
   --color-background: #F0F0F0;
   --azul_oscuro: #2D3450;
-  --naranja:#F0B07A;
+  --naranja:#221f45;
+  --eror-text: #dc2626;
+}
+
+/* Contenedor principal: ocupa toda la pantalla y centra el contenido */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: var(--bg-gradient);
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  padding: 20px;
+}
+
+/* La tarjeta blanca del login */
+.login-card {
+  background: var(--white);
+  padding: 2.5rem;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(255, 255, 255, 0.1);
+  width: 100%;
+  max-width: 380px;
+  text-align: center;
+}
+
+.login-card h1 {
+  margin-bottom: 1.5rem;
+  color: var(--color-background);
+  font-size: 1.75rem;
+}
+
+/* Grupos de input y label */
+.input-group {
+  text-align: left;
+  margin-bottom: 1rem;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 0.4rem;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 20px;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+  box-sizing: border-box; /* Fundamental para que el padding no rompa el ancho */
+}
+
+
+
+/* Botón de Iniciar Sesión */
+.login-btn {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: var(--naranja);
+  border-radius: 20px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  margin-top: 1rem;
+}
+
+.login-btn:hover {
+  background-color: var(--primary-hover);
+}
+
+/* Mensaje de error */
+.error-msg {
+  background-color: var(--error-bg);
+  color: var(--error-text);
+  padding: 0.6rem;
+  border-radius: 6px;
+  margin-top: 1rem;
+  font-size: 0.85rem;
+  border: 1px solid rgba(220, 38, 38, 0.2);
 }
