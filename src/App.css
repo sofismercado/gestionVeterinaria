@@ -1,29 +1,28 @@
 :root {
-  --azul_grisaceo_claro: #6D7D9D;
-  --azul_grisaceo_medio: #4A5270;
-  --color-background: #F0F0F0;
-  --azul_oscuro: #2D3450;
-  --naranja:#221f45;
-  --eror-text: #dc2626;
+  --verde_claro: #8b9078;
+  --amarillo_claro: #f7f9e0;
+  --naranja_claro: #dcc487;
+  --marron_claro: #887160;
 }
+
 
 /* Contenedor principal: ocupa toda la pantalla y centra el contenido */
 .login-container {
-  display: flex;
+  display:flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: var(--bg-gradient);
+  background: var(--marron_claro);
   font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-  padding: 20px;
+  padding: 2px;
 }
 
 /* La tarjeta blanca del login */
 .login-card {
-  background: var(--white);
+  background: var(--naranja_claro);
   padding: 2.5rem;
   border-radius: 12px;
-  box-shadow: 0 10px 25px rgba(255, 255, 255, 0.1);
+  box-shadow: 0 10px 25px var(--naranja_claro);
   width: 100%;
   max-width: 380px;
   text-align: center;
@@ -31,20 +30,25 @@
 
 .login-card h1 {
   margin-bottom: 1.5rem;
-  color: var(--color-background);
-  font-size: 1.75rem;
+  font-size: 4rem;
+}
+
+.input-group input::placeholder {
+  color: white;
+  opacity: 1;
 }
 
 /* Grupos de input y label */
 .input-group {
   text-align: left;
   margin-bottom: 1rem;
+  color: white;
 }
 
 .input-group label {
   display: block;
   margin-bottom: 0.4rem;
-  color: var(--text-muted);
+  color: white;
   font-size: 0.9rem;
   font-weight: 500;
 }
@@ -54,6 +58,7 @@
   padding: 0.75rem;
   border: 1px solid #d1d5db;
   border-radius: 20px;
+  background-color: var(--marron_claro);
   font-size: 1rem;
   transition: all 0.2s ease;
   box-sizing: border-box; /* Fundamental para que el padding no rompa el ancho */
@@ -65,7 +70,7 @@
 .login-btn {
   width: 100%;
   padding: 0.75rem;
-  background-color: var(--naranja);
+  background-color: var(--marron_claro);
   border-radius: 20px;
   font-size: 1rem;
   font-weight: 600;
@@ -75,16 +80,36 @@
 }
 
 .login-btn:hover {
-  background-color: var(--primary-hover);
+  background-color: var(--amarillo_claro);
+  color: var(--marron_claro)
 }
+
 
 /* Mensaje de error */
 .error-msg {
   background-color: var(--error-bg);
-  color: var(--error-text);
+  color: var(--marron_claro);
   padding: 0.6rem;
   border-radius: 6px;
   margin-top: 1rem;
   font-size: 0.85rem;
-  border: 1px solid rgba(220, 38, 38, 0.2);
+  border: 1px solid var(--marron_claro);
+}
+
+
+
+.login-logo {
+  width: 30%;  
+  height: 40%;
+}
+
+.contenedor-padre{
+    display:flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: var(--marron_claro);
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  padding: 2px;
+
 }

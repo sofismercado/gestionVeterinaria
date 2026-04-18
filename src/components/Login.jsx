@@ -1,6 +1,9 @@
-import { useState } from "react"
+import { useState } from "react"; 
+import { useNavigate } from "react-router-dom";
+import logo from "../assets/logo.png.png";
 
 const Login = () => {
+  const navigate= useNavigate();
   const [nombre, setNombre] = useState("")
   const [constraseña, setContraseña] = useState("")
   const [error, setError] = useState(false)
@@ -16,12 +19,20 @@ const Login = () => {
     setError(false);
     // aca es donde agregamos la lógica de:
     // if(nombre === "admin") navigate("/admin") ...
+    if (nombre === "Sofi@gmail.com"){
+      navigate("/home");
+      }else {
+        alert("Usuario no reconocido");
+      }
   }
 
   return (
     <section className="login-container">
       <div className="login-card">
-        <h1>🐾</h1>
+        <img
+        src={logo}
+        alt="Logo de veterinaria"
+        className="login-logo"/>
         <h2>Iniciar Sesión</h2>
         
         <form className="login-form" onSubmit={handlesubmit}>
