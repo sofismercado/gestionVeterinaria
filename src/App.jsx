@@ -1,19 +1,27 @@
-import{ BrowserRouter as Router, Routes, Route} from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { AuthProvider } from './context/AuthContext';
+import ProtectedRoute from './components/ProtectedRoute';
 import Login from './components/Login';
 import HomeCliente from './pages/cliente/HomeCliente';
-import './App.css'
+import MisMascotas from './pages/cliente/mis_mascotas';
+import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        {/* Si la ruta es la raíz, muestra el Login */}
-        <Route path="/" element={<Login />} />
-        
-        {/* Si la ruta es /home, muestra el Home del cliente */}
-        <Route path="/home" element={<HomeCliente />} />
-      </Routes>
-    </Router>
+    <AuthProvider>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Login />} />
+          <Route path="/home" element={<HomeCliente />} />
+          <Route path="/mis-mascotas" element={
+            <ProtectedRoute>
+              <MisMascotas />
+            </ProtectedRoute>
+          } />
+        </Routes>
+      </Router>
+    </AuthProvider>
   );
 }
 

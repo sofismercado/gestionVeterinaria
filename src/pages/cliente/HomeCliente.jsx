@@ -1,23 +1,32 @@
-import React from 'react';
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
 
-// El componente de botón lo podés declarar aquí mismo o en otro archivo
-const BotonMenu = ({ texto }) => {
-  return <button className="boton-principal">{texto}</button>;
+const BotonMenu = ({ texto, onClick }) => {
+  return <button className="boton-principal" onClick={onClick}>{texto}</button>;
 };
 
 function HomeCliente() {
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate("/");
+  };
+
   return (
     <div className="contenedor-padre">
       <header className="navbar">
-        <h1>Hola Sofi! 🐾</h1>
-        <button className="boton-secundario">Cerrar sesión</button>
+        <h1>Hola {user?.nombre}! 🐾</h1>
+        <button className="boton-secundario" onClick={handleLogout}>Cerrar sesión</button>
       </header>
       <main className="contenido">
         <div className="columna-botones">
-          <BotonMenu texto="MIS MASCOTAS" />
-          <BotonMenu texto="TURNOS" />
+          <BotonMenu texto="MIS MASCOTAS" onClick={() => navigate("/mis-mascotas")} />
+          <BotonMenu texto="TURNOS" onClick={() => navigate("/mis-turnos")} />
+          <BotonMenu texto="PEDIR TURNO" onClick={() => navigate("/pedir-turno")} />
         </div>
-        <div className="placeholder-img">🐶🐱</div>
+        <div className="placeholder-img"></div>
       </main>
     </div>
   );

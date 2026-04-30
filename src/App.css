@@ -3,42 +3,50 @@
   --amarillo_claro: #f7f9e0;
   --naranja_claro: #dcc487;
   --marron_claro: #887160;
+  --error-bg: #f8d7da;
+}
+
+/* Reset PRO */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 
-/* Contenedor principal: ocupa toda la pantalla y centra el contenido */
+/* Contenedor principal */
 .login-container {
-  display:flex;
+  display: flex;
   justify-content: center;
+  background-color: var(--marron_claro);
   align-items: center;
   min-height: 100vh;
-  background: var(--marron_claro);
-  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-  padding: 2px;
 }
 
-/* La tarjeta blanca del login */
+/* Card */
 .login-card {
   background: var(--naranja_claro);
   padding: 2.5rem;
-  border-radius: 12px;
-  box-shadow: 0 10px 25px var(--naranja_claro);
+  border-radius: 16px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.25);
   width: 100%;
   max-width: 380px;
   text-align: center;
 }
 
-.login-card h1 {
+/* Logo */
+.login-logo {
+  width: 90px;
+  margin-bottom: 1rem;
+}
+
+/* Título */
+.login-card h2 {
   margin-bottom: 1.5rem;
-  font-size: 4rem;
-}
-
-.input-group input::placeholder {
   color: white;
-  opacity: 1;
 }
 
-/* Grupos de input y label */
+/* Inputs */
 .input-group {
   text-align: left;
   margin-bottom: 1rem;
@@ -48,7 +56,6 @@
 .input-group label {
   display: block;
   margin-bottom: 0.4rem;
-  color: white;
   font-size: 0.9rem;
   font-weight: 500;
 }
@@ -56,36 +63,41 @@
 .input-group input {
   width: 100%;
   padding: 0.75rem;
-  border: 1px solid #d1d5db;
-  border-radius: 20px;
+  border: none;
+  border-radius: 30px;
   background-color: var(--marron_claro);
+  color: white;
   font-size: 1rem;
-  transition: all 0.2s ease;
-  box-sizing: border-box; /* Fundamental para que el padding no rompa el ancho */
+  outline: none;
 }
 
+.input-group input::placeholder {
+  color: white;
+  opacity: 0.7;
+}
 
-
-/* Botón de Iniciar Sesión */
+/* Botón */
 .login-btn {
   width: 100%;
-  padding: 0.75rem;
+  padding: 0.8rem;
   background-color: var(--marron_claro);
-  border-radius: 20px;
+  border: none;
+  border-radius: 25px;
   font-size: 1rem;
+  color: white;
   font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.2s ease;
   margin-top: 1rem;
+  transition: all 0.2s ease;
 }
 
 .login-btn:hover {
   background-color: var(--amarillo_claro);
-  color: var(--marron_claro)
+  color: var(--marron_claro);
+  transform: scale(1.02);
 }
 
-
-/* Mensaje de error */
+/* Error */
 .error-msg {
   background-color: var(--error-bg);
   color: var(--marron_claro);
@@ -96,20 +108,105 @@
   border: 1px solid var(--marron_claro);
 }
 
-
-
-.login-logo {
-  width: 30%;  
-  height: 40%;
+/* Fondo general de la aplicación */
+.contenedor-padre {
+  background-color: var(--marron_claro); 
+  min-height: 100vh;
+  padding: 20px;
+  font-family: sans-serif;
 }
 
-.contenedor-padre{
-    display:flex;
+/* Alineación del header */
+.navbar {
+  display: flex;
+  justify-content: space-between; /* Saludo a un lado, botones al otro */
+  align-items: center;
+  color: #f7f9e0;
+  margin-bottom: 50px;
+}
+
+/* Contenedor principal de dos columnas */
+.contenido {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+/* Diseño de los botones grandes amarillos */
+.boton-principal {
+  display: block;
+  background-color: var(--naranja_claro); /* Amarillo pastel */
+  border: 20px;
+  border-radius: 50px; /* Bordes muy redondeados */
+  padding: 40px 60px;
+  margin-bottom: 10px;
+  font-size: 2rem;
+  font-weight: bold;
+  color: white; /* Texto oscuro */
+  cursor: pointer;
+  width: 100%;
+  box-shadow: 0px 4px 6px rgba(0,0,0,0.1);
+}
+
+.boton-principal:hover{
+  background-color: var(--amarillo_claro);
+    color: var(--marron_claro);
+  transform: scale(1.02);
+
+}
+
+/* Botones pequeños del header */
+.boton-secundario {
+  background-color: var(--naranja_claro);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  margin-left: 10px;
+  color: white;
+  cursor: pointer;
+}
+
+.boton-secundario:hover{
+  background-color: var(--amarillo_claro);
+  color: var(--marron_claro);
+  transform: scale(1.02);
+}
+
+/* Tarjetas de mascotas */
+.mascota-card {
+  border-radius: 16px;
+  border: none;
+  background-color: var(--naranja_claro);
+  color: white;
+}
+
+.mascota-foto {
+  display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
-  background: var(--marron_claro);
-  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-  padding: 2px;
+  background-color: var(--marron_claro);
+  border-radius: 16px 16px 0 0;
+  height: 160px;
+  overflow: hidden;
+}
 
+.mascota-foto img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.foto-placeholder {
+  font-size: 4rem;
+}
+
+.dato-label {
+  font-weight: 600;
+}
+
+.sin-mascotas {
+  color: var(--amarillo_claro);
+  font-size: 1.1rem;
+  margin-top: 2rem;
+  text-align: center;
 }
