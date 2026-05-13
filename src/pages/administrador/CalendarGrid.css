@@ -1,0 +1,696 @@
+/* ── CalendarGrid.css ── */
+
+.calendar-section {
+  background: #fff;
+  padding: 1.25rem 1.5rem;
+  border-left: 1px solid #e0d8cc;
+  border-right: 1px solid #e0d8cc;
+}
+
+/* ── Header ── */
+
+.cal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+}
+
+.cal-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: #3a2a14;
+}
+
+.cal-nav {
+  background: none;
+  border: 1px solid #e0d8cc;
+  border-radius: 6px;
+  width: 30px;
+  height: 30px;
+  font-size: 18px;
+  color: #6b5a40;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.12s;
+}
+
+.cal-nav:hover {
+  background: #f5f0e8;
+}
+
+/* ── Grilla ── */
+
+.cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+}
+
+.cal-dow {
+  font-size: 10px;
+  font-weight: 600;
+  color: #9e8c75;
+  text-align: center;
+  padding: 4px 0 8px;
+  letter-spacing: 0.05em;
+}
+
+.cal-day {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 6px 2px 5px;
+  border-radius: 8px;
+  cursor: pointer;
+  min-height: 46px;
+  transition: background 0.12s;
+}
+
+.cal-day:hover {
+  background: #f5f0e8;
+}
+
+.cal-day.other-month {
+  cursor: default;
+}
+
+.cal-day.other-month .day-num {
+  color: #c8bfb0;
+}
+
+.cal-day.selected {
+  background: #c8a96e;
+}
+
+.cal-day.selected .day-num {
+  color: #fff;
+  font-weight: 600;
+}
+
+.day-num {
+  font-size: 13px;
+  color: #3a2a14;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.day-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  display: block;
+}
+
+/* ── Próximos días ── */
+
+.upcoming {
+  margin-top: 1.5rem;
+}
+
+.upcoming-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: #3a2a14;
+  margin: 0 0 3px;
+}
+
+.upcoming-sub {
+  font-size: 11px;
+  color: #9e8c75;
+  margin: 0 0 0.75rem;
+}
+
+.upcoming-scroll {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+
+.upcoming-scroll::-webkit-scrollbar {
+  height: 3px;
+}
+
+.upcoming-scroll::-webkit-scrollbar-thumb {
+  background: #e0d8cc;
+  border-radius: 2px;
+}
+
+.upcoming-card {
+  min-width: 110px;
+  background: #fff;
+  border: 1px solid #e0d8cc;
+  border-radius: 8px;
+  padding: 0.75rem;
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: border-color 0.12s;
+}
+
+.upcoming-card:hover {
+  border-color: #c8a96e;
+}
+
+.upcoming-card-day {
+  font-size: 12px;
+  font-weight: 600;
+  color: #3a2a14;
+  margin: 0 0 2px;
+}
+
+.upcoming-card-date {
+  font-size: 11px;
+  color: #9e8c75;
+  margin: 0 0 6px;
+}
+
+.avail-badge {
+  font-size: 10px;
+  padding: 2px 7px;
+  border-radius: 20px;
+  display: inline-block;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.avail-green  { background: #e6f4ec; color: #2d7a4f; }
+.avail-yellow { background: #fdf3dc; color: #8a6000; }
+
+.ver-dia-btn {
+  font-size: 10px;
+  color: #6b5a40;
+  border: 1px solid #e0d8cc;
+  border-radius: 6px;
+  padding: 3px 8px;
+  background: none;
+  cursor: pointer;
+  width: 100%;
+  transition: background 0.12s;
+  margin-top: 2px;
+}
+
+.ver-dia-btn:hover {
+  background: #f5f0e8;
+}
+
+
+/* ── CalendarGrid.css ── */
+ 
+.calendar-section {
+  background: #fff;
+  padding: 1.25rem 1.5rem;
+  border-left: 1px solid #e0d8cc;
+  border-right: 1px solid #e0d8cc;
+}
+ 
+/* ── Header ── */
+ 
+.cal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+}
+ 
+.cal-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: #3a2a14;
+}
+ 
+.cal-nav {
+  background: none;
+  border: 1px solid #e0d8cc;
+  border-radius: 6px;
+  width: 30px;
+  height: 30px;
+  font-size: 18px;
+  color: #6b5a40;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.12s;
+}
+ 
+.cal-nav:hover {
+  background: #f5f0e8;
+}
+ 
+/* ── Grilla ── */
+ 
+.cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+}
+ 
+.cal-dow {
+  font-size: 10px;
+  font-weight: 600;
+  color: #9e8c75;
+  text-align: center;
+  padding: 4px 0 8px;
+  letter-spacing: 0.05em;
+}
+ 
+.cal-day {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 6px 2px 5px;
+  border-radius: 8px;
+  cursor: pointer;
+  min-height: 46px;
+  transition: background 0.12s;
+}
+ 
+.cal-day:hover {
+  background: #f5f0e8;
+}
+ 
+.cal-day.other-month {
+  cursor: default;
+}
+ 
+.cal-day.other-month .day-num {
+  color: #c8bfb0;
+}
+ 
+.cal-day.selected {
+  background: #c8a96e;
+}
+ 
+.cal-day.selected .day-num {
+  color: #fff;
+  font-weight: 600;
+}
+ 
+.day-num {
+  font-size: 13px;
+  color: #3a2a14;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+ 
+.day-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  display: block;
+}
+ 
+/* ── Próximos días ── */
+ 
+.upcoming {
+  margin-top: 1.5rem;
+}
+ 
+.upcoming-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: #3a2a14;
+  margin: 0 0 3px;
+}
+ 
+.upcoming-sub {
+  font-size: 11px;
+  color: #9e8c75;
+  margin: 0 0 0.75rem;
+}
+ 
+.upcoming-scroll {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+ 
+.upcoming-scroll::-webkit-scrollbar {
+  height: 3px;
+}
+ 
+.upcoming-scroll::-webkit-scrollbar-thumb {
+  background: #e0d8cc;
+  border-radius: 2px;
+}
+ 
+.upcoming-card {
+  min-width: 110px;
+  background: #fff;
+  border: 1px solid #e0d8cc;
+  border-radius: 8px;
+  padding: 0.75rem;
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: border-color 0.12s;
+}
+ 
+.upcoming-card:hover {
+  border-color: #c8a96e;
+}
+ 
+.upcoming-card-day {
+  font-size: 12px;
+  font-weight: 600;
+  color: #3a2a14;
+  margin: 0 0 2px;
+}
+ 
+.upcoming-card-date {
+  font-size: 11px;
+  color: #9e8c75;
+  margin: 0 0 6px;
+}
+ 
+.avail-badge {
+  font-size: 10px;
+  padding: 2px 7px;
+  border-radius: 20px;
+  display: inline-block;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+ 
+.avail-green  { background: #e6f4ec; color: #2d7a4f; }
+.avail-yellow { background: #fdf3dc; color: #8a6000; }
+ 
+.ver-dia-btn {
+  font-size: 10px;
+  color: #6b5a40;
+  border: 1px solid #e0d8cc;
+  border-radius: 6px;
+  padding: 3px 8px;
+  background: none;
+  cursor: pointer;
+  width: 100%;
+  transition: background 0.12s;
+  margin-top: 2px;
+}
+ 
+.ver-dia-btn:hover {
+  background: #f5f0e8;
+}
+ 
+/* ── CalendarGrid.css ── */
+
+.calendar-section {
+  background: #fff;
+  padding: 1.25rem 1.5rem;
+  border-left: 1px solid #e0d8cc;
+  border-right: 1px solid #e0d8cc;
+}
+
+/* ── Header ── */
+
+.cal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+}
+
+.cal-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: #3a2a14;
+}
+
+.cal-nav {
+  background: none;
+  border: 1px solid #e0d8cc;
+  border-radius: 6px;
+  width: 30px;
+  height: 30px;
+  font-size: 18px;
+  color: #6b5a40;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.12s;
+}
+
+.cal-nav:hover {
+  background: #f5f0e8;
+}
+
+/* ── Grilla ── */
+
+.cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+}
+
+.cal-dow {
+  font-size: 10px;
+  font-weight: 600;
+  color: #9e8c75;
+  text-align: center;
+  padding: 4px 0 8px;
+  letter-spacing: 0.05em;
+}
+
+.cal-day {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 6px 2px 5px;
+  border-radius: 8px;
+  cursor: pointer;
+  min-height: 46px;
+  transition: background 0.12s;
+}
+
+.cal-day:hover {
+  background: #f5f0e8;
+}
+
+.cal-day.other-month {
+  cursor: default;
+}
+
+.cal-day.other-month .day-num {
+  color: #c8bfb0;
+}
+
+.cal-day.selected {
+  background: #c8a96e;
+}
+
+.cal-day.selected .day-num {
+  color: #fff;
+  font-weight: 600;
+}
+
+.day-num {
+  font-size: 13px;
+  color: #3a2a14;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.day-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  display: block;
+}
+
+/* ── Próximos días ── */
+
+.upcoming {
+  margin-top: 1.5rem;
+}
+
+.upcoming-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: #3a2a14;
+  margin: 0 0 3px;
+}
+
+.upcoming-sub {
+  font-size: 11px;
+  color: #9e8c75;
+  margin: 0 0 0.75rem;
+}
+
+.upcoming-scroll {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+
+.upcoming-scroll::-webkit-scrollbar {
+  height: 3px;
+}
+
+.upcoming-scroll::-webkit-scrollbar-thumb {
+  background: #e0d8cc;
+  border-radius: 2px;
+}
+
+.upcoming-card {
+  min-width: 110px;
+  background: #fff;
+  border: 1px solid #e0d8cc;
+  border-radius: 8px;
+  padding: 0.75rem;
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: border-color 0.12s;
+}
+
+.upcoming-card:hover {
+  border-color: #c8a96e;
+}
+
+.upcoming-card-day {
+  font-size: 12px;
+  font-weight: 600;
+  color: #3a2a14;
+  margin: 0 0 2px;
+}
+
+.upcoming-card-date {
+  font-size: 11px;
+  color: #9e8c75;
+  margin: 0 0 6px;
+}
+
+.avail-badge {
+  font-size: 10px;
+  padding: 2px 7px;
+  border-radius: 20px;
+  display: inline-block;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.avail-green  { background: #e6f4ec; color: #2d7a4f; }
+.avail-yellow { background: #fdf3dc; color: #8a6000; }
+
+.ver-dia-btn {
+  font-size: 10px;
+  color: #6b5a40;
+  border: 1px solid #e0d8cc;
+  border-radius: 6px;
+  padding: 3px 8px;
+  background: none;
+  cursor: pointer;
+  width: 100%;
+  transition: background 0.12s;
+  margin-top: 2px;
+}
+
+.ver-dia-btn:hover {
+  background: #f5f0e8;
+}
+
+/* ── Responsive ── */
+
+/* Tablet */
+@media (max-width: 900px) {
+  .calendar-section {
+    padding: 1rem;
+  }
+
+  .cal-day {
+    min-height: 38px;
+  }
+
+  .day-num {
+    font-size: 12px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 640px) {
+  .calendar-section {
+    grid-area: calendar;
+    border-left: none;
+    border-right: none;
+    border-bottom: 1px solid #e0d8cc;
+    padding: 1rem 0.75rem;
+    width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+
+  .cal-header {
+    width: 100%;
+  }
+
+  .cal-title {
+    font-size: 14px;
+  }
+
+  .cal-nav {
+    width: 34px;
+    height: 34px;
+    font-size: 20px;
+  }
+
+  /* La grilla ocupa todo el ancho disponible */
+  .cal-grid {
+    width: 100%;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 0;
+  }
+
+  .cal-dow {
+    font-size: 9px;
+    padding-bottom: 6px;
+    text-align: center;
+  }
+
+  .cal-day {
+    min-height: 42px;
+    border-radius: 6px;
+    padding: 6px 0 4px;
+    width: 100%;
+    align-items: center;
+  }
+
+  .day-num {
+    font-size: 13px;
+    text-align: center;
+    width: 100%;
+  }
+
+  .day-dot {
+    width: 6px;
+    height: 6px;
+  }
+
+  /* Próximos días: contenedor con overflow controlado */
+  .upcoming {
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .upcoming-scroll {
+    width: 100%;
+    overflow-x: auto;
+    /* Permite hacer scroll sin romper el layout */
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 6px;
+    /* Extiende el scroll hasta los bordes del padding */
+    margin: 0 -0.75rem;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+    width: calc(100% + 1.5rem);
+    box-sizing: border-box;
+  }
+
+  .upcoming-card {
+    min-width: 130px;
+    flex-shrink: 0;
+  }
+}

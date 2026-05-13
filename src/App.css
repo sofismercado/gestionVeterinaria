@@ -116,97 +116,103 @@
   font-family: sans-serif;
 }
 
+/*background:{ var(--marron_claro);
+font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+padding: 2px;
+
+}*/
+
 /* Alineación del header */
 .navbar {
-  display: flex;
-  justify-content: space-between; /* Saludo a un lado, botones al otro */
-  align-items: center;
-  color: #f7f9e0;
-  margin-bottom: 50px;
+display: flex;
+justify-content: space-between; /* Saludo a un lado, botones al otro */
+align-items: center;
+color: #f7f9e0;
+margin-bottom: 50px;
 }
 
 /* Contenedor principal de dos columnas */
 .contenido {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
+display: flex;
+justify-content: space-around;
+align-items: center;
 }
 
 /* Diseño de los botones grandes amarillos */
 .boton-principal {
-  display: block;
-  background-color: var(--naranja_claro); /* Amarillo pastel */
-  border: 20px;
-  border-radius: 50px; /* Bordes muy redondeados */
-  padding: 40px 60px;
-  margin-bottom: 10px;
-  font-size: 2rem;
-  font-weight: bold;
-  color: white; /* Texto oscuro */
-  cursor: pointer;
-  width: 100%;
-  box-shadow: 0px 4px 6px rgba(0,0,0,0.1);
+display: block;
+background-color: var(--naranja_claro); /* Amarillo pastel */
+border: 20px;
+border-radius: 50px; /* Bordes muy redondeados */
+padding: 40px 60px;
+margin-bottom: 10px;
+font-size: 2rem;
+font-weight: bold;
+color: white; /* Texto oscuro */
+cursor: pointer;
+width: 100%;
+box-shadow: 0px 4px 6px rgba(0,0,0,0.1);
 }
 
 .boton-principal:hover{
-  background-color: var(--amarillo_claro);
-    color: var(--marron_claro);
-  transform: scale(1.02);
+background-color: var(--amarillo_claro);
+color: var(--marron_claro);
+transform: scale(1.02);
 
 }
 
 /* Botones pequeños del header */
 .boton-secundario {
-  background-color: var(--naranja_claro);
-  border: none;
-  padding: 10px 20px;
-  border-radius: 10px;
-  margin-left: 10px;
-  color: white;
-  cursor: pointer;
+background-color: var(--naranja_claro);
+border: none;
+padding: 10px 20px;
+border-radius: 10px;
+margin-left: 10px;
+color: white;
+cursor: pointer;
 }
 
 .boton-secundario:hover{
-  background-color: var(--amarillo_claro);
-  color: var(--marron_claro);
-  transform: scale(1.02);
+background-color: var(--amarillo_claro);
+color: var(--marron_claro);
+transform: scale(1.02);
 }
 
 /* Tarjetas de mascotas */
 .mascota-card {
-  border-radius: 16px;
-  border: none;
-  background-color: var(--naranja_claro);
-  color: white;
+border-radius: 16px;
+border: none;
+background-color: var(--naranja_claro);
+color: white;
 }
 
 .mascota-foto {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: var(--marron_claro);
-  border-radius: 16px 16px 0 0;
-  height: 160px;
-  overflow: hidden;
+display: flex;
+justify-content: center;
+align-items: center;
+background-color: var(--marron_claro);
+border-radius: 16px 16px 0 0;
+height: 160px;
+overflow: hidden;
 }
 
 .mascota-foto img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+width: 100%;
+height: 100%;
+object-fit: cover;
 }
 
 .foto-placeholder {
-  font-size: 4rem;
+font-size: 4rem;
 }
 
 .dato-label {
-  font-weight: 600;
+font-weight: 600;
 }
 
 .sin-mascotas {
-  color: var(--amarillo_claro);
-  font-size: 1.1rem;
-  margin-top: 2rem;
-  text-align: center;
+color: var(--amarillo_claro);
+font-size: 1.1rem;
+margin-top: 2rem;
+text-align: center;
 }

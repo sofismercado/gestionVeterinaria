@@ -1,0 +1,14 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+:root {
+  --verde_claro: #8b9078;
+  --amarillo_claro: #f7f9e0;
+  --naranja_claro: #dcc487;
+  --marron_claro: #887160;
+}
+

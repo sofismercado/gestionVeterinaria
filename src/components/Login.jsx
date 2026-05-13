@@ -22,7 +22,7 @@ const Login = () => {
 
     if (nombre === "Sofi@gmail.com") {
       login({ id: 1, nombre: "Sofi", email: nombre, rol: "cliente" });
-      navigate("/home");
+      navigate("/home_administrador");
     } else {
       setError("Usuario no reconocido.");
     }
