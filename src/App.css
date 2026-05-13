@@ -6,14 +6,6 @@
   --error-bg: #f8d7da;
 }
 
-/* Reset PRO */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-
 /* Contenedor principal */
 .login-container {
   display: flex;
@@ -210,3 +202,93 @@
   margin-top: 2rem;
   text-align: center;
 }
+
+.login-form input {
+  border-radius: 30px !important;
+}
+
+.navbar-links {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* Tablero de tips */
+.tablero-tips {
+  background-color: var(--naranja_claro);
+  border-radius: 16px;
+  padding: 0.6em;
+  max-width: 260px;
+  max-height: 100%;
+  overflow-y: auto;
+  box-shadow: 0px 4px 6px rgba(0,0,0,0.1);
+  align-self: stretch;
+}
+
+.tips-titulo {
+  color: white;
+  font-size: 1rem;
+  margin-bottom: 0.8rem;
+  text-align: center;
+}
+
+.tips-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.tip-card {
+  background-color: var(--marron_claro);
+  border-radius: 10px;
+  padding: 0.4rem 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: white;
+  font-size: 0.75rem;
+}
+
+.tip-emoji {
+  font-size: 1rem;
+}
+
+/* Tarjetas de mascotas */
+.mascota-card {
+  border-radius: 16px;
+  border: none;
+  background-color: var(--naranja_claro);
+  color: white;
+}
+
+.mascota-foto {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--marron_claro);
+  border-radius: 16px 16px 0 0;
+  height: 160px;
+  overflow: hidden;
+}
+
+.mascota-foto img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.foto-placeholder {
+  font-size: 4rem;
+}
+
+.dato-label {
+  font-weight: 600;
+}
+
+.sin-mascotas {
+  color: var(--amarillo_claro);
+  font-size: 1.1rem;
+  margin-top: 2rem;
+  text-align: center;
+}
+

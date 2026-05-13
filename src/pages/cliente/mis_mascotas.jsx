@@ -1,29 +1,5 @@
-import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../context/AuthContext";
-
-// Datos de prueba hasta que esté el backend
-const mascotasMock = [
-  {
-    id: 1,
-    nombre: "Luna",
-    especie: "Perro",
-    raza: "Labrador",
-    edad: 3,
-    peso: 28,
-    nroVeterinaria: "VET-001",
-    foto: null,
-  },
-  {
-    id: 2,
-    nombre: "Michi",
-    especie: "Gato",
-    raza: "Persa",
-    edad: 5,
-    peso: 4,
-    nroVeterinaria: "VET-002",
-    foto: null,
-  },
-];
+import { useState, useEffect } from "react";
+import NavbarCliente from "../../components/NavbarCliente";
 
 const TarjetaMascota = ({ mascota }) => {
   return (
@@ -52,34 +28,24 @@ const TarjetaMascota = ({ mascota }) => {
 };
 
 function MisMascotas() {
-  const { user, logout } = useAuth();
-  const navigate = useNavigate();
+  const [mascotas, setMascotas] = useState([]);
 
-  const handleLogout = () => {
-    logout();
-    navigate("/");
-  };
+  useEffect(() => {
+    fetch("http://localhost:3000/mascotas")
+      .then(res => res.json())
+      .then(data => setMascotas([...data]))
+      .catch(err => console.log(err));
+  }, []);
 
   return (
     <div className="contenedor-padre">
-      <header className="navbar">
-        <h1>Mis Mascotas 🐾</h1>
-        <div>
-          <button className="boton-secundario" onClick={() => navigate("/home")}>
-            Volver
-          </button>
-          <button className="boton-secundario" onClick={handleLogout}>
-            Cerrar sesión
-          </button>
-        </div>
-      </header>
-
+      <NavbarCliente />
       <main>
-        {mascotasMock.length === 0 ? (
-          <p className="sin-mascotas">Todavía no tenés mascotas registradas. Consultá con el administrador.</p>
+        {mascotas.length === 0 ? (
+          <p className="sin-mascotas">Todavía no tenés mascotas registradas.</p>
         ) : (
           <div className="row">
-            {mascotasMock.map((m) => (
+            {mascotas.map((m) => (
               <TarjetaMascota key={m.id} mascota={m} />
             ))}
           </div>
