@@ -6,7 +6,6 @@
   --error-bg: #f8d7da;
 }
 
-/* Contenedor principal */
 .login-container {
   display: flex;
   justify-content: center;
@@ -15,7 +14,6 @@
   min-height: 100vh;
 }
 
-/* Card */
 .login-card {
   background: var(--naranja_claro);
   padding: 2.5rem;
@@ -26,19 +24,16 @@
   text-align: center;
 }
 
-/* Logo */
 .login-logo {
   width: 90px;
   margin-bottom: 1rem;
 }
 
-/* Título */
 .login-card h2 {
   margin-bottom: 1.5rem;
   color: white;
 }
 
-/* Inputs */
 .input-group {
   text-align: left;
   margin-bottom: 1rem;
@@ -68,7 +63,6 @@
   opacity: 0.7;
 }
 
-/* Botón */
 .login-btn {
   width: 100%;
   padding: 0.8rem;
@@ -89,7 +83,6 @@
   transform: scale(1.02);
 }
 
-/* Error */
 .error-msg {
   background-color: var(--error-bg);
   color: var(--marron_claro);
@@ -100,7 +93,6 @@
   border: 1px solid var(--marron_claro);
 }
 
-/* Fondo general de la aplicación */
 .contenedor-padre {
   background-color: var(--marron_claro); 
   min-height: 100vh;
@@ -108,46 +100,43 @@
   font-family: sans-serif;
 }
 
-/* Alineación del header */
 .navbar {
   display: flex;
-  justify-content: space-between; /* Saludo a un lado, botones al otro */
+  justify-content: space-between;
   align-items: center;
   color: #f7f9e0;
   margin-bottom: 50px;
 }
 
-/* Contenedor principal de dos columnas */
 .contenido {
   display: flex;
   justify-content: space-around;
-  align-items: center;
+  align-items: flex-start;
+  gap: 30px;
+  flex-wrap: wrap;
 }
 
-/* Diseño de los botones grandes amarillos */
 .boton-principal {
   display: block;
-  background-color: var(--naranja_claro); /* Amarillo pastel */
+  background-color: var(--naranja_claro);
   border: 20px;
-  border-radius: 50px; /* Bordes muy redondeados */
+  border-radius: 50px;
   padding: 40px 60px;
   margin-bottom: 10px;
   font-size: 2rem;
   font-weight: bold;
-  color: white; /* Texto oscuro */
+  color: white;
   cursor: pointer;
   width: 100%;
   box-shadow: 0px 4px 6px rgba(0,0,0,0.1);
 }
 
-.boton-principal:hover{
+.boton-principal:hover {
   background-color: var(--amarillo_claro);
-    color: var(--marron_claro);
+  color: var(--marron_claro);
   transform: scale(1.02);
-
 }
 
-/* Botones pequeños del header */
 .boton-secundario {
   background-color: var(--naranja_claro);
   border: none;
@@ -158,13 +147,12 @@
   cursor: pointer;
 }
 
-.boton-secundario:hover{
+.boton-secundario:hover {
   background-color: var(--amarillo_claro);
   color: var(--marron_claro);
   transform: scale(1.02);
 }
 
-/* Tarjetas de mascotas */
 .mascota-card {
   border-radius: 16px;
   border: none;
@@ -253,42 +241,67 @@
   font-size: 1rem;
 }
 
-/* Tarjetas de mascotas */
-.mascota-card {
-  border-radius: 16px;
-  border: none;
+/* Bloc de notas (admin) */
+.bloc-notas {
   background-color: var(--naranja_claro);
+  border-radius: 20px;
+  padding: 20px 24px;
+  flex: 1 1 300px;
+  max-width: 100%;
+  box-shadow: 0px 4px 6px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-self: flex-start;
+  margin-top: 10px;
+}
+
+.columna-botones {
+  flex: 1 1 280px;
+  max-width: 100%;
+}
+
+.bloc-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.bloc-titulo {
+  font-size: 1rem;
+  font-weight: 600;
   color: white;
 }
 
-.mascota-foto {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: var(--marron_claro);
-  border-radius: 16px 16px 0 0;
-  height: 160px;
-  overflow: hidden;
+.bloc-limpiar {
+  background: rgba(255,255,255,0.25);
+  border: none;
+  border-radius: 8px;
+  padding: 4px 12px;
+  font-size: 0.8rem;
+  color: white;
+  cursor: pointer;
 }
 
-.mascota-foto img {
+.bloc-limpiar:hover {
+  background: rgba(255,255,255,0.4);
+}
+
+.bloc-textarea {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  height: 220px;
+  background: rgba(255,255,255,0.2);
+  border: none;
+  border-radius: 12px;
+  padding: 12px;
+  font-size: 0.9rem;
+  color: white;
+  resize: none;
+  outline: none;
+  font-family: sans-serif;
+  line-height: 1.5;
 }
 
-.foto-placeholder {
-  font-size: 4rem;
+.bloc-textarea::placeholder {
+  color: rgba(255,255,255,0.6);
 }
-
-.dato-label {
-  font-weight: 600;
-}
-
-.sin-mascotas {
-  color: var(--amarillo_claro);
-  font-size: 1.1rem;
-  margin-top: 2rem;
-  text-align: center;
-}
-

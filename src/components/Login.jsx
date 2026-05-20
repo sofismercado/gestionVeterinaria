@@ -10,7 +10,6 @@ const Login = () => {
   const [contraseña, setContraseña] = useState("");
   const [error, setError] = useState("");
 
-  // Estados para el registro
   const [mostrarRegistro, setMostrarRegistro] = useState(false);
   const [regNombre, setRegNombre] = useState("");
   const [regEmail, setRegEmail] = useState("");
@@ -22,73 +21,73 @@ const Login = () => {
     e.preventDefault();
 
     if (nombre === "" || contraseña === "") {
-        setError("Todos los campos son obligatorios.");
-        return;
+      setError("Todos los campos son obligatorios.");
+      return;
     }
 
     setError("");
 
     fetch("http://localhost:3000/login", {
-        headers: { "Content-type": "application/json" },
-        method: "POST",
-        body: JSON.stringify({ email: nombre, password: contraseña })
+      headers: { "Content-type": "application/json" },
+      method: "POST",
+      body: JSON.stringify({ email: nombre, password: contraseña })
     })
-        .then(async res => {
-            if (!res.ok) {
-                const errData = await res.json();
-                throw new Error(errData.message || "Error al iniciar sesión");
-            }
-            return res.json();
-        })
-        .then(data => {
-            localStorage.setItem("veterinaria-token", data.token);
-            login({ nombre: data.nombre, rol: data.rol });
+      .then(async res => {
+        if (!res.ok) {
+          const errData = await res.json();
+          throw new Error(errData.message || "Error al iniciar sesión");
+        }
+        return res.json();
+      })
+      .then(data => {
+        localStorage.setItem("veterinaria-token", data.token);
+        login({ nombre: data.nombre, rol: data.rol });
 
-            if (data.rol === "superadmin") navigate("/home-superadmin");
-            else if (data.rol === "admin") navigate("/home-admin");
-            else navigate("/home");
-        })
-        .catch(err => setError(err.message));
+        if (data.rol === "superadmin") navigate("/home-administrador");
+        else if (data.rol === "admin") navigate("/home-administrador");
+        else navigate("/home");
+      })
+      .catch(err => setError(err.message));
   };
 
   const handleRegistro = (e) => {
     e.preventDefault();
 
     if (!regNombre || !regEmail || !regPassword) {
-        setRegError("Todos los campos son obligatorios.");
-        return;
+      setRegError("Todos los campos son obligatorios.");
+      return;
     }
 
     if (regPassword.length < 7) {
-        setRegError("La contraseña debe tener al menos 7 caracteres.");
-        return;
+      setRegError("La contraseña debe tener al menos 7 caracteres.");
+      return;
     }
 
     setRegError("");
 
     fetch("http://localhost:3000/register", {
-        headers: { "Content-type": "application/json" },
-        method: "POST",
-        body: JSON.stringify({ nombre: regNombre, email: regEmail, password: regPassword })
+      headers: { "Content-type": "application/json" },
+      method: "POST",
+      body: JSON.stringify({ nombre: regNombre, email: regEmail, password: regPassword })
     })
-        .then(async res => {
-            if (!res.ok) {
-                const errData = await res.json();
-                throw new Error(errData.message || "Error al registrarse");
-            }
-            return res.json();
-        })
-        .then(() => {
-            setRegExito("¡Usuario creado correctamente! Ya podés iniciar sesión.");
-            setRegNombre("");
-            setRegEmail("");
-            setRegPassword("");
-            setTimeout(() => {
-                setMostrarRegistro(false);
-                setRegExito("");
-            }, 2000);
-        })
-        .catch(err => setRegError(err.message));
+      .then(async res => {
+        if (!res.ok) {
+          const errData = await res.json();
+          throw new Error(errData.message || "Error al registrarse");
+        }
+        return res.json();
+      })
+      .then(() => {
+        setRegExito("¡Usuario creado correctamente! Ya podés iniciar sesión.");
+        setRegNombre("");
+        setRegEmail("");
+        setRegPassword("");
+        setTimeout(() => {
+          setMostrarRegistro(false);
+          setRegExito("");
+        }, 2000);
+      })
+      .catch(err => setRegError(err.message));
   };
 
   return (

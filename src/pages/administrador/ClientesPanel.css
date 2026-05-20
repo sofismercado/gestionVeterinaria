@@ -1,0 +1,55 @@
+.cp-wrap { max-width: 720px; margin: 0 auto; padding: 24px 20px; }
+
+.cp-topbar { display: flex; align-items: center; gap: 16px; margin-bottom: 20px; }
+.cp-back { background: none; border: none; font-size: 13px; color: #888; cursor: pointer; padding: 0; }
+.cp-back:hover { color: #333; }
+.cp-title { font-size: 20px; font-weight: 600; color: #3d2c1e; }
+
+.cp-actions { display: flex; gap: 10px; margin-bottom: 12px; }
+.cp-search-wrap { flex: 1; position: relative; }
+.cp-search-icon { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); font-size: 14px; }
+.cp-search { width: 100%; padding: 9px 12px 9px 32px; border: 1px solid #ddd; border-radius: 8px; font-size: 13px; outline: none; }
+.cp-search:focus { border-color: #c9873a; box-shadow: 0 0 0 3px rgba(201,135,58,0.12); }
+.cp-btn-nuevo { padding: 9px 16px; background: #c9873a; border: none; border-radius: 8px; color: #fff; font-size: 13px; font-weight: 500; cursor: pointer; white-space: nowrap; }
+.cp-btn-nuevo:hover { background: #b5762d; }
+
+.cp-form-card { border: 1px solid #eee; border-radius: 12px; padding: 18px 20px; margin-bottom: 14px; background: #fff; }
+.cp-form-title { font-size: 14px; font-weight: 600; margin-bottom: 14px; color: #3d2c1e; }
+.cp-form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 16px; margin-bottom: 14px; }
+.cp-field { display: flex; flex-direction: column; gap: 5px; }
+.cp-field.cp-full { grid-column: 1 / -1; }
+.cp-field label { font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 500; }
+.cp-field input { padding: 8px 10px; border: 1px solid #ddd; border-radius: 8px; font-size: 13px; outline: none; }
+.cp-field input:focus { border-color: #c9873a; box-shadow: 0 0 0 3px rgba(201,135,58,0.12); }
+.cp-form-footer { display: flex; justify-content: flex-end; gap: 8px; }
+.cp-btn-cancelar { padding: 8px 16px; border: 1px solid #ddd; border-radius: 8px; background: none; font-size: 13px; color: #666; cursor: pointer; }
+.cp-btn-guardar { padding: 8px 18px; background: #c9873a; border: none; border-radius: 8px; font-size: 13px; font-weight: 500; color: #fff; cursor: pointer; }
+.cp-btn-guardar:hover { background: #b5762d; }
+
+.cp-count { font-size: 12px; color: #888; margin-bottom: 10px; }
+.cp-empty { text-align: center; padding: 32px; color: #888; font-size: 13px; }
+
+.cp-card { border: 1px solid #eee; border-radius: 12px; margin-bottom: 8px; overflow: hidden; background: #fff; }
+.cp-row { display: flex; align-items: center; gap: 12px; padding: 12px 16px; cursor: pointer; }
+.cp-row:hover { background: #faf9f7; }
+.cp-avatar { width: 38px; height: 38px; border-radius: 50%; background: #FAEEDA; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 600; color: #854F0B; flex-shrink: 0; }
+.cp-info { flex: 1; min-width: 0; }
+.cp-nombre { font-size: 14px; font-weight: 500; color: #1a1a1a; }
+.cp-mascotas { font-size: 12px; color: #888; margin-top: 2px; }
+.cp-chevron { font-size: 16px; color: #aaa; transition: transform 0.2s; display: inline-block; }
+.cp-chevron.open { transform: rotate(180deg); }
+
+.cp-detail { border-top: 1px solid #eee; padding: 14px 16px; }
+.cp-detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 20px; margin-bottom: 14px; }
+.cp-detail-item { display: flex; flex-direction: column; gap: 2px; }
+.cp-detail-label { font-size: 11px; color: #aaa; text-transform: uppercase; letter-spacing: 0.05em; }
+.cp-detail-value { font-size: 13px; color: #1a1a1a; }
+.cp-mascotas-section { margin-bottom: 14px; }
+.cp-chips { margin-top: 6px; }
+.cp-chip { display: inline-block; background: #f5f5f5; border: 1px solid #eee; border-radius: 20px; padding: 4px 10px; font-size: 12px; margin: 0 4px 4px 0; }
+.cp-sin-mascotas { font-size: 13px; color: #aaa; }
+.cp-detail-actions { display: flex; gap: 8px; }
+.cp-btn-editar { padding: 7px 14px; border: 1px solid #ddd; border-radius: 8px; background: none; font-size: 12px; color: #555; cursor: pointer; }
+.cp-btn-editar:hover { background: #f5f5f5; }
+.cp-btn-eliminar { padding: 7px 14px; border: 1px solid #F7C1C1; border-radius: 8px; background: none; font-size: 12px; color: #A32D2D; cursor: pointer; }
+.cp-btn-eliminar:hover { background: #FCEBEB; }
