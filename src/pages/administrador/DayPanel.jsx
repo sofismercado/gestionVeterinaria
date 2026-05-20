@@ -36,13 +36,13 @@ export default function DayPanel({ selectedDate, turnos }) {
                 <p className="turno-raza">{t.raza}</p>
                 <p className="turno-motivo">{t.motivo}</p>
               </div>
-              <button className="ver-btn">Ver</button>
+              <button className="ver-btn">Ver</button> {/*agrgegar edta ruta y entrrar al turno y poder modificarloo cancelarlo*/}
             </div>
           ))
         )}
       </div>
 
-      <button className="ver-todos-btn">Ver todos los turnos del día</button>
+     {/*  <button className="ver-todos-btn">Ver todos los turnos del día</button>sacar esete boton*/ }
     </aside>
   );
 }

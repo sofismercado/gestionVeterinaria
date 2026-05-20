@@ -2,8 +2,10 @@ import { useState } from "react";
 import Sidebar from "./Sidebar";
 import CalendarGrid from "./CalendarGrid";
 import DayPanel from "./DayPanel";
-import "./TurnosPanel.css";
 
+import "./TurnosPanel.css";
+import NuevoTurnoModal from "./NuevoTurnoModal";
+//aca estan cargados los datos sin base de datos
 // ─── Mock Data ───────────────────────────────────────────────
 export const MOCK_DOTS = {
   "2024-5-1": "green",  "2024-5-3": "yellow", "2024-5-6": "green",
@@ -52,6 +54,7 @@ export const UPCOMING_DAYS = [
 export default function TurnosPanel() {
   const [selectedDate, setSelectedDate] = useState({ year: 2024, month: 4, day: 8 });
   const [currentMonth, setCurrentMonth] = useState({ year: 2024, month: 4 });
+  const [modalOpen, setModalOpen] = useState(false); // ← nuevo
 
   const handlePrevMonth = () => {
     setCurrentMonth(prev => {
@@ -73,24 +76,30 @@ export default function TurnosPanel() {
 
   const turnosKey = `${selectedDate.year}-${selectedDate.month + 1}-${selectedDate.day}`;
   const turnosDelDia = MOCK_TURNOS[turnosKey] || [];
+  const dots = MOCK_DOTS;
 
   return (
     <div className="turnos-panel">
       
-      <Sidebar />
+      <Sidebar onNuevoTurno={() => setModalOpen(true)} /> {/* ← prop nueva */}
       <CalendarGrid
         currentMonth={currentMonth}
         selectedDate={selectedDate}
-        dots={MOCK_DOTS}
+        dots={dots}
         upcomingDays={UPCOMING_DAYS}
         onPrevMonth={handlePrevMonth}
         onNextMonth={handleNextMonth}
         onSelectDay={handleSelectDay}
       />
-      <DayPanel
-        selectedDate={selectedDate}
-        turnos={turnosDelDia}
-      />
+      <DayPanel selectedDate={selectedDate} turnos={turnosDelDia} />
+         {/* ← Modal nuevo */}
+      {modalOpen && (
+        <NuevoTurnoModal
+          selectedDate={selectedDate}
+          turnosDelDia={turnosDelDia}
+          onClose={() => setModalOpen(false)}
+        />
+      )}
     </div>
   );
 }

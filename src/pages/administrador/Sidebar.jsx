@@ -1,20 +1,34 @@
-import "./Sidebar.css";
 
-export default function Sidebar() {
+import { useNavigate } from "react-router-dom";
+import "./Sidebar.css";
+{/* aca tenemos el calendario y la inscripcion del costado que muestra la referencia */}
+export default function Sidebar({ onNuevoTurno }) {
+  
+  const navigate = useNavigate(); // ← adentro de la función
+
   return (
     <aside className="sidebar">
       <div>
+       
+
+
+
         <p className="sidebar-title">Turnos asignados</p>
         <div className="sidebar-buttons">
           <button className="sidebar-btn active">
             <CalendarIcon />
             Calendario
           </button>
-          <button className="sidebar-btn">
+          <button className="sidebar-btn" on onClick={onNuevoTurno}>
             <PlusIcon />
             Nuevo turno
           </button>
+          <button className="sidebar-btn back-btn" onClick={() => navigate("/home_administrador")}>
+          <BackIcon />
+          Volver al menú
+          </button>
         </div>
+         
       </div>
 
       <div className="legend">
@@ -45,6 +59,15 @@ function PlusIcon() {
       <circle cx="12" cy="12" r="10" />
       <line x1="12" y1="8" x2="12" y2="16" />
       <line x1="8" y1="12" x2="16" y2="12" />
+    </svg>
+  );
+}
+
+function BackIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+      <line x1="19" y1="12" x2="5" y2="12" />
+      <polyline points="12 19 5 12 12 5" />
     </svg>
   );
 }
