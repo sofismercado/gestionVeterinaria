@@ -8,16 +8,16 @@ const Turno = sequelize.define("Turno", {
   },
   hora: {
     type: DataTypes.TIME,
-    allowNull: false,
+    allowNull: true,
   },
   motivo: {
     type: DataTypes.STRING,
-    allowNull: false,
+    allowNull: true,
   },
   estado: {
-    type: DataTypes.ENUM("pendiente", "confirmado", "cancelado", "finalizado"),
+    type: DataTypes.ENUM("disponible", "pendiente", "confirmado", "cancelado", "finalizado", "sin_atencion"),
     allowNull: false,
-    defaultValue: "pendiente",
+    defaultValue: "disponible",
   },
 });
 

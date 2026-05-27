@@ -2,7 +2,16 @@ const { Turno, Mascota, Usuario } = require("../models");
 
 async function listarTurnos(req, res) {
   try {
-    const where = req.user.rol === "cliente" ? { clienteId: req.user.id } : {};
+    const where = {};
+
+    if (req.query.estado) {
+      where.estado = req.query.estado;
+    }
+
+    if (req.user.rol === "cliente" && req.query.estado !== "disponible") {
+      where.clienteId = req.user.id;
+    }
+
     const turnos = await Turno.findAll({
       where,
       include: [
@@ -21,20 +30,49 @@ async function listarTurnos(req, res) {
 
 async function crearTurno(req, res) {
   try {
-    const { fecha, hora, motivo, estado, mascotaId, clienteId, adminId } = req.body;
+    const { fecha, hora, motivo, estado = "disponible" } = req.body;
 
-    if (!fecha || !hora || !motivo || !mascotaId || !clienteId) {
-      return res.status(400).json({ mensaje: "Fecha, hora, motivo, mascotaId y clienteId son obligatorios." });
+    if (!fecha) {
+      return res.status(400).json({ mensaje: "La fecha es obligatoria." });
+    }
+
+    if (estado === "disponible" && !hora) {
+      return res.status(400).json({ mensaje: "La hora es obligatoria para habilitar un turno." });
+    }
+
+    if (estado === "sin_atencion") {
+      const diaExistente = await Turno.findOne({ where: { fecha, estado: "sin_atencion" } });
+      if (diaExistente) {
+        return res.status(400).json({ mensaje: "Ese dia ya esta marcado sin atencion." });
+      }
+
+      const turnoPedido = await Turno.findOne({ where: { fecha, estado: "pendiente" } });
+      const turnoConfirmado = await Turno.findOne({ where: { fecha, estado: "confirmado" } });
+      if (turnoPedido || turnoConfirmado) {
+        return res.status(400).json({ mensaje: "No se puede marcar sin atencion un dia con turnos pedidos." });
+      }
+
+      await Turno.destroy({ where: { fecha, estado: "disponible" } });
+    }
+
+    if (estado === "disponible") {
+      const diaSinAtencion = await Turno.findOne({ where: { fecha, estado: "sin_atencion" } });
+      if (diaSinAtencion) {
+        return res.status(400).json({ mensaje: "No se pueden habilitar horarios en un dia sin atencion." });
+      }
+
+      const horarioExistente = await Turno.findOne({ where: { fecha, hora } });
+      if (horarioExistente) {
+        return res.status(400).json({ mensaje: "Ese horario ya existe para ese dia." });
+      }
     }
 
     const turno = await Turno.create({
       fecha,
-      hora,
-      motivo,
-      estado: estado || "pendiente",
-      mascotaId,
-      clienteId,
-      adminId: adminId || null,
+      hora: hora || null,
+      motivo: motivo || null,
+      estado,
+      adminId: req.user.id,
     });
 
     res.status(201).json(turno);
@@ -51,7 +89,92 @@ async function actualizarTurno(req, res) {
       return res.status(404).json({ mensaje: "Turno no encontrado." });
     }
 
-    await turno.update(req.body);
+    if (req.user.rol === "cliente") {
+      const { estado, mascotaId, motivo, reprogramarTurnoId } = req.body;
+
+      if (estado === "disponible") {
+        if (turno.clienteId !== req.user.id) {
+          return res.status(403).json({ mensaje: "No podes cancelar un turno que no es tuyo." });
+        }
+
+        if (!["pendiente", "confirmado"].includes(turno.estado)) {
+          return res.status(400).json({ mensaje: "Ese turno no se puede cancelar." });
+        }
+
+        await turno.update({
+          estado: "disponible",
+          clienteId: null,
+          mascotaId: null,
+          motivo: null,
+        });
+
+        return res.json(turno);
+      }
+
+      if (turno.estado !== "disponible") {
+        return res.status(400).json({ mensaje: "Ese horario ya no esta disponible." });
+      }
+
+      if (!mascotaId || !motivo || motivo.trim().length < 3) {
+        return res.status(400).json({ mensaje: "Mascota y motivo son obligatorios." });
+      }
+
+      const mascota = await Mascota.findOne({
+        where: { id: mascotaId, usuarioId: req.user.id },
+      });
+
+      if (!mascota) {
+        return res.status(403).json({ mensaje: "La mascota no pertenece al usuario." });
+      }
+
+      if (reprogramarTurnoId) {
+        const turnoAnterior = await Turno.findOne({
+          where: { id: reprogramarTurnoId, clienteId: req.user.id },
+        });
+
+        if (!turnoAnterior || !["pendiente", "confirmado"].includes(turnoAnterior.estado)) {
+          return res.status(400).json({ mensaje: "No se encontro un turno valido para reprogramar." });
+        }
+
+        await turnoAnterior.update({
+          estado: "disponible",
+          clienteId: null,
+          mascotaId: null,
+          motivo: null,
+        });
+      }
+
+      await turno.update({
+        estado: "pendiente",
+        clienteId: req.user.id,
+        mascotaId,
+        motivo,
+      });
+
+      return res.json(turno);
+    }
+
+    const datos = { ...req.body };
+
+    if (datos.estado === "confirmado") {
+      datos.adminId = req.user.id;
+    }
+
+    if (datos.estado === "disponible") {
+      datos.clienteId = null;
+      datos.mascotaId = null;
+      datos.motivo = null;
+    }
+
+    if (datos.estado === "sin_atencion") {
+      datos.hora = null;
+      datos.clienteId = null;
+      datos.mascotaId = null;
+      datos.motivo = datos.motivo || "Sin atencion";
+      datos.adminId = req.user.id;
+    }
+
+    await turno.update(datos);
     res.json(turno);
   } catch (error) {
     res.status(500).json({ mensaje: "Error al actualizar turno.", error: error.message });

@@ -1,9 +1,11 @@
 const bcrypt = require("bcrypt");
-const { Usuario, Mascota } = require("../models");
+const { Usuario, Mascota, Turno } = require("../models");
 
 async function listarUsuarios(req, res) {
   try {
+    const where = req.user.rol === "admin" ? { rol: "cliente" } : {};
     const usuarios = await Usuario.findAll({
+      where,
       attributes: { exclude: ["password"] },
       include: [{ model: Mascota, as: "mascotas" }],
       order: [["id", "DESC"]],
@@ -26,6 +28,10 @@ async function obtenerUsuario(req, res) {
       return res.status(404).json({ mensaje: "Usuario no encontrado." });
     }
 
+    if (req.user.rol === "admin" && usuario.rol !== "cliente") {
+      return res.status(403).json({ mensaje: "No tenes permiso para ver este usuario." });
+    }
+
     res.json(usuario);
   } catch (error) {
     res.status(500).json({ mensaje: "Error al obtener usuario.", error: error.message });
@@ -46,7 +52,7 @@ async function crearUsuario(req, res) {
       email,
       telefono,
       password: passwordHash,
-      rol: rol || "cliente",
+      rol: req.user.rol === "admin" ? "cliente" : rol || "cliente",
       estado: estado || "activo",
     });
 
@@ -67,8 +73,18 @@ async function actualizarUsuario(req, res) {
       return res.status(404).json({ mensaje: "Usuario no encontrado." });
     }
 
+    if (req.user.rol === "admin" && usuario.rol !== "cliente") {
+      return res.status(403).json({ mensaje: "No tenes permiso para editar este usuario." });
+    }
+
     const { nombre, email, telefono, password, rol, estado } = req.body;
-    const datos = { nombre, email, telefono, rol, estado };
+    const datos = {
+      nombre,
+      email,
+      telefono,
+      rol: req.user.rol === "admin" ? "cliente" : rol,
+      estado,
+    };
 
     if (password) {
       datos.password = await bcrypt.hash(password, 10);
@@ -93,7 +109,15 @@ async function eliminarUsuario(req, res) {
       return res.status(404).json({ mensaje: "Usuario no encontrado." });
     }
 
+    if (req.user.rol === "admin" && usuario.rol !== "cliente") {
+      return res.status(403).json({ mensaje: "No tenes permiso para eliminar este usuario." });
+    }
+
+    await Turno.destroy({ where: { clienteId: usuario.id } });
+    await Turno.update({ adminId: null }, { where: { adminId: usuario.id } });
+    await Mascota.destroy({ where: { usuarioId: usuario.id } });
     await usuario.destroy();
+
     res.json({ mensaje: "Usuario eliminado correctamente." });
   } catch (error) {
     res.status(500).json({ mensaje: "Error al eliminar usuario.", error: error.message });

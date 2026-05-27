@@ -13,8 +13,8 @@ const router = express.Router();
 router.use(authMiddleware);
 
 router.get("/", listarTurnos);
-router.post("/", roleMiddleware(["cliente", "admin", "super-admin"]), crearTurno);
-router.put("/:id", roleMiddleware(["admin", "super-admin"]), actualizarTurno);
+router.post("/", roleMiddleware(["admin", "super-admin"]), crearTurno);
+router.put("/:id", roleMiddleware(["cliente", "admin", "super-admin"]), actualizarTurno);
 router.delete("/:id", roleMiddleware(["admin", "super-admin"]), eliminarTurno);
 
 module.exports = router;

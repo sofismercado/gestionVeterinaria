@@ -12,7 +12,7 @@ const {
 const router = express.Router();
 
 router.use(authMiddleware);
-router.use(roleMiddleware(["super-admin"]));
+router.use(roleMiddleware(["admin", "super-admin"]));
 
 router.get("/", listarUsuarios);
 router.get("/:id", obtenerUsuario);
