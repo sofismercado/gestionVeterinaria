@@ -1,0 +1,161 @@
+.super-subtitle {
+  color: var(--amarillo_claro);
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+.super-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 18px;
+}
+
+.super-card {
+  background: var(--naranja_claro);
+  border: none;
+  border-radius: 16px;
+  color: white;
+  cursor: pointer;
+  min-height: 150px;
+  padding: 24px;
+  text-align: left;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+  transition: transform 0.18s ease, background 0.18s ease;
+}
+
+.super-card:hover {
+  background: var(--amarillo_claro);
+  color: var(--marron_claro);
+  transform: translateY(-3px);
+}
+
+.super-card-title {
+  display: block;
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.super-card-text {
+  display: block;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+.usuarios-panel {
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+.usuarios-actions {
+  align-items: center;
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+}
+
+.usuarios-search {
+  border: none;
+  border-radius: 10px;
+  color: var(--marron_claro);
+  flex: 1;
+  min-width: 220px;
+  outline: none;
+  padding: 12px 14px;
+}
+
+.usuario-form {
+  background: var(--naranja_claro);
+  border-radius: 16px;
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-bottom: 18px;
+  padding: 18px;
+}
+
+.usuario-form input,
+.usuario-form select {
+  border: none;
+  border-radius: 10px;
+  color: var(--marron_claro);
+  outline: none;
+  padding: 11px 12px;
+}
+
+.usuario-form-error {
+  color: #7a1e1e;
+  font-size: 0.9rem;
+  grid-column: 1 / -1;
+  margin: 0;
+}
+
+.usuario-form-actions {
+  display: flex;
+  gap: 10px;
+  grid-column: 1 / -1;
+  justify-content: flex-end;
+}
+
+.usuarios-lista {
+  display: grid;
+  gap: 12px;
+}
+
+.usuario-card {
+  align-items: center;
+  background: var(--naranja_claro);
+  border-radius: 14px;
+  color: white;
+  display: grid;
+  gap: 12px;
+  grid-template-columns: 1fr auto;
+  padding: 16px;
+}
+
+.usuario-nombre {
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 0 0 4px;
+}
+
+.usuario-mail {
+  margin: 0;
+  opacity: 0.9;
+}
+
+.usuario-meta {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+
+.usuario-badge {
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 4px 9px;
+}
+
+.usuario-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+@media (max-width: 680px) {
+  .usuario-form,
+  .usuario-card {
+    grid-template-columns: 1fr;
+  }
+
+  .usuario-actions,
+  .usuario-form-actions {
+    justify-content: flex-start;
+  }
+}

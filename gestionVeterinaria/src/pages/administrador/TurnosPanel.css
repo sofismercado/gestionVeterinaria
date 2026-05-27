@@ -1,0 +1,64 @@
+/* ── TurnosPanel.css ── */
+
+.turnos-panel {
+  display: grid;
+  grid-template-columns: 220px 1fr 280px;
+  min-height: 600px;
+  border: 1px solid #e0d8cc;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #f5f0e8;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+
+.turnos-panel {
+  display: grid;
+  grid-template-columns: 220px 1fr 280px;
+  min-height: 600px;
+  border: 1px solid #e0d8cc;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #f5f0e8;
+  font-family: 'Segoe UI', sans-serif;
+}
+ 
+/* ── TurnosPanel.css ── */
+
+.turnos-panel {
+  display: grid;
+  grid-template-columns: 220px 1fr 280px;
+  min-height: 600px;
+  border: 1px solid #e0d8cc;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #f5f0e8;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* ── Tablet: sidebar colapsa, panel derecho se achica ── */
+@media (max-width: 900px) {
+  .turnos-panel {
+    grid-template-columns: 160px 1fr 220px;
+  }
+}
+
+/* ── Mobile: todo en columna, sidebar se convierte en nav inferior ── */
+@media (max-width: 640px) {
+  .turnos-panel {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
+    grid-template-areas:
+      "calendar"
+      "daypanel"
+      "sidebar";
+    border-radius: 0;
+    border: none;
+    min-height: unset;
+    padding-bottom: 70px;
+    width: 100%;
+    max-width: 100vw;
+    overflow-x: hidden;
+    box-sizing: border-box;
+  }
+}

@@ -1,0 +1,144 @@
+.pedir-turno-main {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 340px;
+  border: 1px solid #e0d8cc;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #f5f0e8;
+  font-family: "Segoe UI", sans-serif;
+}
+
+.pedir-turno-panel {
+  background: #fff;
+  padding: 1.25rem;
+  border-left: 1px solid #e0d8cc;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.pedir-turno-title {
+  color: #3a2a14;
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.pedir-turno-subtitle {
+  color: #9e8c75;
+  font-size: 12px;
+  margin: 0;
+}
+
+.pedir-turno-date {
+  background: #f5f0e8;
+  border-radius: 8px;
+  padding: 0.75rem;
+  color: #3a2a14;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.pedir-turno-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.pedir-turno-field label {
+  color: #6b5a40;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.pedir-turno-field select,
+.pedir-turno-field textarea {
+  border: 1px solid #e0d8cc;
+  border-radius: 8px;
+  padding: 0.65rem;
+  color: #3a2a14;
+  background: #fff;
+  outline: none;
+  font-size: 13px;
+}
+
+.pedir-turno-field textarea {
+  min-height: 90px;
+  resize: vertical;
+}
+
+.horarios-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.horario-btn {
+  border: 1px solid #e0d8cc;
+  border-radius: 8px;
+  background: #fff;
+  color: #6b5a40;
+  padding: 0.55rem 0.35rem;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background 0.12s, border-color 0.12s;
+}
+
+.horario-btn:hover {
+  background: #f5f0e8;
+}
+
+.horario-btn.selected {
+  background: #c8a96e;
+  border-color: #c8a96e;
+  color: #fff;
+  font-weight: 700;
+}
+
+.confirmar-turno-btn {
+  border: none;
+  border-radius: 8px;
+  background: #c8a96e;
+  color: #3a2a14;
+  padding: 0.8rem;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: auto;
+}
+
+.confirmar-turno-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.turno-confirmado {
+  background: #e6f4ec;
+  color: #2d7a4f;
+  border-radius: 8px;
+  padding: 0.75rem;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+@media (max-width: 900px) {
+  .pedir-turno-main {
+    grid-template-columns: 1fr;
+  }
+
+  .pedir-turno-panel {
+    border-left: none;
+    border-top: 1px solid #e0d8cc;
+  }
+}
+
+@media (max-width: 640px) {
+  .pedir-turno-main {
+    border-radius: 0;
+    border: none;
+  }
+
+  .horarios-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
