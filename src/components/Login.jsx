@@ -18,7 +18,10 @@ const Login = () => {
     }
 
     
-    if (nombre === "admin@vet.com" && contraseña === "admin123") {
+    if (nombre === "superadmin@vet.com" && contraseña === "super123") {
+      login({ nombre: "Super Administrador", rol: "super-admin" });
+      navigate("/home_superadministrador");
+    } else if (nombre === "admin@vet.com" && contraseña === "admin123") {
       login({ nombre: "Administrador", rol: "admin" });
       navigate("/home_administrador");
     } else if (nombre === "cliente@vet.com" && contraseña === "cliente123") {
@@ -60,6 +63,10 @@ const Login = () => {
         {/* Accesos rápidos para probar */}
         <div style={{ marginTop: "1rem", padding: "0.75rem", background: "rgba(255,255,255,0.15)", borderRadius: "10px" }}>
           <p style={{ color: "white", fontSize: "0.75rem", marginBottom: "0.5rem" }}>Accesos rápidos de prueba:</p>
+          <button className="login-btn" style={{ fontSize: "0.8rem", marginTop: "0.3rem" }}
+            onClick={() => { setNombre("superadmin@vet.com"); setContraseña("super123"); }}>
+            Entrar como Super Admin
+          </button>
           <button className="login-btn" style={{ fontSize: "0.8rem", marginTop: "0.3rem" }}
             onClick={() => { setNombre("admin@vet.com"); setContraseña("admin123"); }}>
             Entrar como Admin

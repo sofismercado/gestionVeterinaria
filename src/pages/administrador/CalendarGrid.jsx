@@ -14,11 +14,11 @@ const DOT_COLORS = {
 
 export default function CalendarGrid({
   currentMonth, selectedDate, dots, upcomingDays,
-  onPrevMonth, onNextMonth, onSelectDay,
+  onPrevMonth, onNextMonth, onSelectDay, onSelectUpcomingDay,
 }) {
   const { year, month } = currentMonth;
 
-  // Primer día del mes (0=Dom ... 6=Sab), convertido a lunes=0
+
   const firstDow = new Date(year, month, 1).getDay();
   const startOffset = firstDow === 0 ? 6 : firstDow - 1;
   const daysInMonth = new Date(year, month + 1, 0).getDate();
@@ -26,16 +26,16 @@ export default function CalendarGrid({
 
   const cells = [];
 
-  // Días del mes anterior
+
   for (let i = 0; i < startOffset; i++) {
     cells.push({ day: prevMonthDays - startOffset + 1 + i, otherMonth: true });
   }
-  // Días del mes actual
+
   for (let d = 1; d <= daysInMonth; d++) {
     const key = `${year}-${month + 1}-${d}`;
     cells.push({ day: d, otherMonth: false, dot: dots[key] });
   }
-  // Días del mes siguiente
+
   const remaining = cells.length % 7 === 0 ? 0 : 7 - (cells.length % 7);
   for (let i = 1; i <= remaining; i++) {
     cells.push({ day: i, otherMonth: true });
@@ -46,6 +46,18 @@ export default function CalendarGrid({
     selectedDate.day === d.day &&
     selectedDate.month === month &&
     selectedDate.year === year;
+
+  const handleUpcomingClick = (upcomingDay) => {
+    if (onSelectUpcomingDay) {
+      onSelectUpcomingDay(upcomingDay);
+      return;
+    }
+
+    const [upcomingYear, upcomingMonth, upcomingDayNumber] = upcomingDay.key.split("-").map(Number);
+    if (upcomingYear === year && upcomingMonth - 1 === month) {
+      onSelectDay(upcomingDayNumber);
+    }
+  };
 
   return (
     <section className="calendar-section">
@@ -88,13 +100,26 @@ export default function CalendarGrid({
         <p className="upcoming-sub">Seleccioná un día para ver sus turnos</p>
         <div className="upcoming-scroll">
           {upcomingDays.map((u) => (
-            <div key={u.key} className="upcoming-card">
+            <div
+              key={u.key}
+              className="upcoming-card"
+              onClick={() => handleUpcomingClick(u)}
+            >
               <p className="upcoming-card-day">{u.dow}</p>
               <p className="upcoming-card-date">{u.date}</p>
               <span className={`avail-badge avail-${u.color}`}>
                 {u.avail} disponibles
               </span>
-              <button className="ver-dia-btn">Ver día</button>
+              <button
+                className="ver-dia-btn"
+                type="button"
+                onClick={(event) => {
+                  event.stopPropagation();
+                  handleUpcomingClick(u);
+                }}
+              >
+                Ver día
+              </button>
             </div>
           ))}
         </div>

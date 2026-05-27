@@ -1,42 +1,38 @@
-
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
 import "./Sidebar.css";
-{/* aca tenemos el calendario y la inscripcion del costado que muestra la referencia */}
+
 export default function Sidebar({ onNuevoTurno }) {
-  
-  const navigate = useNavigate(); // ← adentro de la función
+  const navigate = useNavigate();
+  const { user } = useAuth();
+  const homePath = user?.rol === "super-admin" ? "/home_superadministrador" : "/home_administrador";
 
   return (
     <aside className="sidebar">
       <div>
-       
-
-
-
         <p className="sidebar-title">Turnos asignados</p>
         <div className="sidebar-buttons">
           <button className="sidebar-btn active">
             <CalendarIcon />
             Calendario
           </button>
-          <button className="sidebar-btn" on onClick={onNuevoTurno}>
+          <button className="sidebar-btn" onClick={onNuevoTurno}>
             <PlusIcon />
             Nuevo turno
           </button>
-          <button className="sidebar-btn back-btn" onClick={() => navigate("/home_administrador")}>
-          <BackIcon />
-          Volver al menú
+          <button className="sidebar-btn back-btn" onClick={() => navigate(homePath)}>
+            <BackIcon />
+            Volver al menu
           </button>
         </div>
-         
       </div>
 
       <div className="legend">
         <p className="legend-title">Referencias del calendario</p>
-        <div className="legend-item"><span className="dot dot-green" /> Día con turnos disponibles</div>
-        <div className="legend-item"><span className="dot dot-yellow" /> Día con pocos turnos disponibles</div>
+        <div className="legend-item"><span className="dot dot-green" /> Dia con turnos disponibles</div>
+        <div className="legend-item"><span className="dot dot-yellow" /> Dia con pocos turnos disponibles</div>
         <div className="legend-item"><span className="dot dot-red" /> Sin turnos disponibles</div>
-        <div className="legend-item"><span className="dot dot-gray" /> Día sin atención</div>
+        <div className="legend-item"><span className="dot dot-gray" /> Dia sin atencion</div>
       </div>
     </aside>
   );

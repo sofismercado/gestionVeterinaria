@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
 import "./ClientesPanel.css";
 
 const MOCK_CLIENTES = [
@@ -16,6 +17,8 @@ function initials(nombre) {
 
 export default function ClientesPanel() {
   const navigate = useNavigate();
+  const { user } = useAuth();
+  const homePath = user?.rol === "super-admin" ? "/home_superadministrador" : "/home_administrador";
   const [clientes, setClientes] = useState(MOCK_CLIENTES);
   const [query, setQuery] = useState("");
   const [expandedId, setExpandedId] = useState(null);
@@ -55,7 +58,7 @@ export default function ClientesPanel() {
   return (
     <div className="cp-wrap">
       <div className="cp-topbar">
-        <button className="cp-back" onClick={() => navigate("/home_administrador")}>
+        <button className="cp-back" onClick={() => navigate(homePath)}>
           ← Volver al menú
         </button>
         <h1 className="cp-title">Nuestros clientes</h1>
