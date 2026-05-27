@@ -28,7 +28,7 @@ export default function DayPanel({ selectedDate, turnos, horarios = [], diaNoAte
         {diaNoAtencion && (
           <div className="turno-item">
             <div className="turno-info">
-              <p className="turno-nombre">Dia marcado sin atencion</p>
+              <p className="turno-nombre">Día marcado sin atencion</p>
               <p className="turno-motivo">{diaNoAtencion.motivo || "Sin atencion"}</p>
             </div>
             <button className="ver-btn danger" onClick={() => onEliminarTurno(diaNoAtencion.id)}>Borrar</button>
@@ -38,7 +38,7 @@ export default function DayPanel({ selectedDate, turnos, horarios = [], diaNoAte
         {error ? (
           <p className="turno-empty">{error}</p>
         ) : !diaNoAtencion && turnos.length === 0 ? (
-          <p className="turno-empty">No hay turnos pedidos para este dia</p>
+          <p className="turno-empty">No hay turnos pedidos para este día</p>
         ) : !diaNoAtencion && (
           turnos.map((t) => (
             <div key={t.id} className="turno-item">

@@ -31,7 +31,7 @@ function initials(nombre = "") {
 
 function formatMascota(mascota) {
   const especieRaza = [mascota.especie, mascota.raza].filter(Boolean).join(" - ");
-  const edad = mascota.edad ? `${mascota.edad} anios` : "Edad sin cargar";
+  const edad = mascota.edad ? `${mascota.edad} años` : "Edad sin cargar";
   const peso = mascota.peso ? `${mascota.peso} kg` : "Peso sin cargar";
   return `${especieRaza || "Sin especie"} - ${edad} - ${peso}`;
 }
@@ -96,7 +96,7 @@ export default function ClientesPanel() {
 
   async function guardar() {
     if (!form.nombre.trim() || !form.mail.trim() || !form.password.trim() || !form.mascota.trim()) {
-      setError("Nombre, mail, contrasena y mascota son obligatorios.");
+      setError("Nombre, mail, contraseña y mascota son obligatorios.");
       return;
     }
 
@@ -243,11 +243,11 @@ export default function ClientesPanel() {
 
       <div className="cp-actions">
         <div className="cp-search-wrap">
-          <span className="cp-search-icon">Buscar</span>
+          <span className="cp-search-icon"></span>
           <input
             className="cp-search"
             type="text"
-            placeholder="Buscar por duenio o mascota"
+            placeholder="Buscar por dueño o mascota"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
           />
@@ -265,7 +265,7 @@ export default function ClientesPanel() {
           <p className="cp-form-title">Agregar nuevo cliente</p>
           <div className="cp-form-grid">
             <div className="cp-field">
-              <label>Nombre del duenio</label>
+              <label>Nombre del dueño</label>
               <input value={form.nombre} onChange={(e) => setForm((f) => ({ ...f, nombre: e.target.value }))} placeholder="Ej: Maria Garcia" />
             </div>
             <div className="cp-field">
@@ -277,7 +277,7 @@ export default function ClientesPanel() {
               <input value={form.mail} onChange={(e) => setForm((f) => ({ ...f, mail: e.target.value }))} placeholder="Ej: maria@gmail.com" />
             </div>
             <div className="cp-field">
-              <label>Contrasena</label>
+              <label>Contraseña</label>
               <input type="password" value={form.password} onChange={(e) => setForm((f) => ({ ...f, password: e.target.value }))} placeholder="Contrasena inicial" />
             </div>
             <div className="cp-field">
