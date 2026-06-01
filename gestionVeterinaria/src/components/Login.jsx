@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import logo from "../assets/logo.png.png";
 
@@ -13,7 +13,7 @@ const getHomeByRole = (rol) => {
 
 const Login = () => {
   const navigate = useNavigate();
-  const { login } = useAuth();
+  const { login, user } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -41,18 +41,22 @@ const Login = () => {
       const data = await response.json();
 
       if (!response.ok) {
-        setError(data.mensaje || "Usuario o contrasena incorrectos.");
+        setError(data.mensaje || "Usuario o contraseña incorrectos.");
         return;
       }
 
       login(data.usuario, data.token);
-      navigate(getHomeByRole(data.usuario.rol));
+      navigate(getHomeByRole(data.usuario.rol), {replace: true});
     } catch (err) {
       setError("No se pudo conectar con el servidor.");
     } finally {
       setLoading(false);
     }
   };
+
+  if (user) {
+    return <Navigate to={getHomeByRole(user.rol)} replace />;  //Esto evita que un usuario autenticado vea nuevamente el formulario al volver hacia atrás 
+  }
 
   return (
     <section className="login-container">

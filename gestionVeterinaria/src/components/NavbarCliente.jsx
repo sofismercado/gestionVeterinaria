@@ -8,7 +8,7 @@ const NavbarCliente = () => {
   const handleLogout = () => {
     logout();
     localStorage.removeItem("veterinaria-token");
-    navigate("/");
+    navigate("/", { replace: true });
   };
 
   return (

@@ -161,6 +161,13 @@ function UsuariosPanel() {
   };
 
   const eliminarUsuario = async (id) => {
+    const usuario = usuarios.find((item) => item.id === id);
+    const confirmado = window.confirm(
+      `¿Estas seguro de que queres eliminar al usuario ${usuario?.nombre || ""}?`
+    );
+
+    if (!confirmado) return;
+
     try {
       setLoading(true);
       setError("");

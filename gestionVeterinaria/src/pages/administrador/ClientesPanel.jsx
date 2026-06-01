@@ -5,6 +5,15 @@ import "./ClientesPanel.css";
 
 const API_URL = "http://localhost:3000/api";
 
+const AVATARES_MASCOTA = [
+  { value: "perro", label: "Perro", emoji: "\u{1F436}" },
+  { value: "gato", label: "Gato", emoji: "\u{1F431}" },
+  { value: "conejo", label: "Conejo", emoji: "\u{1F430}" },
+  { value: "loro", label: "Loro", emoji: "\u{1F99C}" },
+  { value: "hamster", label: "Hamster", emoji: "\u{1F439}" },
+  { value: "tortuga", label: "Tortuga", emoji: "\u{1F422}" },
+];
+
 const CLIENTE_FORM_INICIAL = {
   nombre: "",
   tel: "",
@@ -15,6 +24,7 @@ const CLIENTE_FORM_INICIAL = {
   raza: "",
   edad: "",
   peso: "",
+  avatar: "perro",
 };
 
 const MASCOTA_FORM_INICIAL = {
@@ -23,7 +33,34 @@ const MASCOTA_FORM_INICIAL = {
   raza: "",
   edad: "",
   peso: "",
+  avatar: "perro",
 };
+
+function getAvatar(avatar) {
+  return AVATARES_MASCOTA.find((item) => item.value === avatar) || AVATARES_MASCOTA[0];
+}
+
+function SelectorAvatar({ value, onChange }) {
+  return (
+    <div className="cp-field cp-full">
+      <label>Avatar de la mascota</label>
+      <div className="cp-avatar-options">
+        {AVATARES_MASCOTA.map((avatar) => (
+          <button
+            key={avatar.value}
+            className={`cp-avatar-option ${value === avatar.value ? "selected" : ""}`}
+            type="button"
+            onClick={() => onChange(avatar.value)}
+            title={avatar.label}
+          >
+            <span className="cp-avatar-emoji">{avatar.emoji}</span>
+            <span>{avatar.label}</span>
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
 
 function initials(nombre = "") {
   return nombre.split(" ").slice(0, 2).map((w) => w[0]).join("").toUpperCase();
@@ -45,6 +82,7 @@ export default function ClientesPanel() {
   const [query, setQuery] = useState("");
   const [expandedId, setExpandedId] = useState(null);
   const [formOpen, setFormOpen] = useState(false);
+  const [editandoId, setEditandoId] = useState(null);
   const [form, setForm] = useState(CLIENTE_FORM_INICIAL);
   const [agregandoMascotaId, setAgregandoMascotaId] = useState(null);
   const [mascotaForm, setMascotaForm] = useState(MASCOTA_FORM_INICIAL);
@@ -94,8 +132,38 @@ export default function ClientesPanel() {
     setAgregandoMascotaId(null);
   }
 
+  function abrirAlta() {
+    setEditandoId(null);
+    setForm(CLIENTE_FORM_INICIAL);
+    setError("");
+    setFormOpen(true);
+  }
+
+  function abrirEdicion(cliente) {
+    setEditandoId(cliente.id);
+    setForm({
+      ...CLIENTE_FORM_INICIAL,
+      nombre: cliente.nombre || "",
+      tel: cliente.telefono || "",
+      mail: cliente.email || "",
+    });
+    setError("");
+    setFormOpen(true);
+  }
+
+  function cerrarForm() {
+    setEditandoId(null);
+    setForm(CLIENTE_FORM_INICIAL);
+    setFormOpen(false);
+  }
+
   async function guardar() {
-    if (!form.nombre.trim() || !form.mail.trim() || !form.password.trim() || !form.mascota.trim()) {
+    if (!form.nombre.trim() || !form.mail.trim()) {
+      setError("Nombre y mail son obligatorios.");
+      return;
+    }
+
+    if (!editandoId && (!form.password.trim() || !form.mascota.trim())) {
       setError("Nombre, mail, contraseña y mascota son obligatorios.");
       return;
     }
@@ -103,6 +171,42 @@ export default function ClientesPanel() {
     try {
       setLoading(true);
       setError("");
+
+      if (editandoId) {
+        const cliente = clientes.find((c) => c.id === editandoId);
+        const payload = {
+          nombre: form.nombre,
+          email: form.mail,
+          telefono: form.tel,
+          rol: "cliente",
+          estado: cliente?.estado || "activo",
+        };
+
+        if (form.password.trim()) {
+          payload.password = form.password;
+        }
+
+        const res = await fetch(`${API_URL}/usuarios/${editandoId}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(payload),
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+          setError(data.mensaje || "No se pudo actualizar el cliente.");
+          return;
+        }
+
+        await cargarClientes();
+        cerrarForm();
+        setExpandedId(editandoId);
+        return;
+      }
 
       const resUsuario = await fetch(`${API_URL}/usuarios`, {
         method: "POST",
@@ -139,6 +243,7 @@ export default function ClientesPanel() {
           raza: form.raza,
           edad: form.edad || null,
           peso: form.peso || null,
+          avatar: form.avatar,
           usuarioId: usuarioCreado.id,
         }),
       });
@@ -151,8 +256,7 @@ export default function ClientesPanel() {
       }
 
       await cargarClientes();
-      setForm(CLIENTE_FORM_INICIAL);
-      setFormOpen(false);
+      cerrarForm();
       setExpandedId(usuarioCreado.id);
     } catch (err) {
       setError("No se pudo conectar con el servidor.");
@@ -183,6 +287,7 @@ export default function ClientesPanel() {
           raza: mascotaForm.raza,
           edad: mascotaForm.edad || null,
           peso: mascotaForm.peso || null,
+          avatar: mascotaForm.avatar,
           usuarioId: id,
         }),
       });
@@ -205,6 +310,13 @@ export default function ClientesPanel() {
   }
 
   async function eliminar(id) {
+    const cliente = clientes.find((c) => c.id === id);
+    const confirmado = window.confirm(
+      `¿Estas seguro de que queres eliminar al cliente ${cliente?.nombre || ""}?`
+    );
+
+    if (!confirmado) return;
+
     try {
       setLoading(true);
       setError("");
@@ -232,6 +344,39 @@ export default function ClientesPanel() {
     }
   }
 
+  async function eliminarMascota(id, nombre) {
+    const confirmado = window.confirm(
+      `¿Estas seguro de que queres eliminar la mascota ${nombre}?`
+    );
+
+    if (!confirmado) return;
+
+    try {
+      setLoading(true);
+      setError("");
+
+      const res = await fetch(`${API_URL}/mascotas/${id}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        setError(data.mensaje || "No se pudo eliminar la mascota.");
+        return;
+      }
+
+      await cargarClientes();
+    } catch (err) {
+      setError("No se pudo conectar con el servidor.");
+    } finally {
+      setLoading(false);
+    }
+  }
+
   return (
     <div className="cp-wrap">
       <div className="cp-topbar">
@@ -252,7 +397,7 @@ export default function ClientesPanel() {
             onChange={(e) => setQuery(e.target.value)}
           />
         </div>
-        <button className="cp-btn-nuevo" onClick={() => setFormOpen((v) => !v)}>
+        <button className="cp-btn-nuevo" onClick={abrirAlta}>
           + Nuevo cliente
         </button>
       </div>
@@ -262,7 +407,7 @@ export default function ClientesPanel() {
 
       {formOpen && (
         <div className="cp-form-card">
-          <p className="cp-form-title">Agregar nuevo cliente</p>
+          <p className="cp-form-title">{editandoId ? "Editar cliente" : "Agregar nuevo cliente"}</p>
           <div className="cp-form-grid">
             <div className="cp-field">
               <label>Nombre del dueño</label>
@@ -278,32 +423,42 @@ export default function ClientesPanel() {
             </div>
             <div className="cp-field">
               <label>Contraseña</label>
-              <input type="password" value={form.password} onChange={(e) => setForm((f) => ({ ...f, password: e.target.value }))} placeholder="Contrasena inicial" />
+              <input type="password" value={form.password} onChange={(e) => setForm((f) => ({ ...f, password: e.target.value }))} placeholder={editandoId ? "Nueva contrasena (opcional)" : "Contrasena inicial"} />
             </div>
-            <div className="cp-field">
-              <label>Nombre de mascota</label>
-              <input value={form.mascota} onChange={(e) => setForm((f) => ({ ...f, mascota: e.target.value }))} placeholder="Ej: Lola" />
-            </div>
-            <div className="cp-field">
-              <label>Especie</label>
-              <input value={form.especie} onChange={(e) => setForm((f) => ({ ...f, especie: e.target.value }))} placeholder="Ej: Perro" />
-            </div>
-            <div className="cp-field">
-              <label>Raza</label>
-              <input value={form.raza} onChange={(e) => setForm((f) => ({ ...f, raza: e.target.value }))} placeholder="Ej: Beagle" />
-            </div>
-            <div className="cp-field">
-              <label>Edad</label>
-              <input value={form.edad} onChange={(e) => setForm((f) => ({ ...f, edad: e.target.value }))} placeholder="Ej: 3" />
-            </div>
-            <div className="cp-field">
-              <label>Peso</label>
-              <input value={form.peso} onChange={(e) => setForm((f) => ({ ...f, peso: e.target.value }))} placeholder="Ej: 12" />
-            </div>
+            {!editandoId && (
+              <>
+                <div className="cp-field">
+                  <label>Nombre de mascota</label>
+                  <input value={form.mascota} onChange={(e) => setForm((f) => ({ ...f, mascota: e.target.value }))} placeholder="Ej: Lola" />
+                </div>
+                <div className="cp-field">
+                  <label>Especie</label>
+                  <input value={form.especie} onChange={(e) => setForm((f) => ({ ...f, especie: e.target.value }))} placeholder="Ej: Perro" />
+                </div>
+                <div className="cp-field">
+                  <label>Raza</label>
+                  <input value={form.raza} onChange={(e) => setForm((f) => ({ ...f, raza: e.target.value }))} placeholder="Ej: Beagle" />
+                </div>
+                <div className="cp-field">
+                  <label>Edad</label>
+                  <input value={form.edad} onChange={(e) => setForm((f) => ({ ...f, edad: e.target.value }))} placeholder="Ej: 3" />
+                </div>
+                <div className="cp-field">
+                  <label>Peso</label>
+                  <input value={form.peso} onChange={(e) => setForm((f) => ({ ...f, peso: e.target.value }))} placeholder="Ej: 12" />
+                </div>
+                <SelectorAvatar
+                  value={form.avatar}
+                  onChange={(avatar) => setForm((f) => ({ ...f, avatar }))}
+                />
+              </>
+            )}
           </div>
           <div className="cp-form-footer">
-            <button className="cp-btn-cancelar" onClick={() => setFormOpen(false)}>Cancelar</button>
-            <button className="cp-btn-guardar" onClick={guardar}>Guardar cliente</button>
+            <button className="cp-btn-cancelar" onClick={cerrarForm}>Cancelar</button>
+            <button className="cp-btn-guardar" onClick={guardar}>
+              {editandoId ? "Guardar cambios" : "Guardar cliente"}
+            </button>
           </div>
         </div>
       )}
@@ -347,7 +502,15 @@ export default function ClientesPanel() {
                       {(c.mascotas || []).length > 0
                         ? c.mascotas.map((m) => (
                           <span key={m.id} className="cp-chip">
+                            <span className="cp-chip-avatar">{getAvatar(m.avatar).emoji}</span>
                             {m.nombre} - {formatMascota(m)}
+                            <button
+                              className="cp-chip-eliminar"
+                              onClick={() => eliminarMascota(m.id, m.nombre)}
+                              title={`Eliminar a ${m.nombre}`}
+                            >
+                              x
+                            </button>
                           </span>
                         ))
                         : <span className="cp-sin-mascotas">Sin mascotas registradas</span>
@@ -379,6 +542,10 @@ export default function ClientesPanel() {
                           <label>Peso</label>
                           <input value={mascotaForm.peso} onChange={(e) => setMascotaForm((f) => ({ ...f, peso: e.target.value }))} placeholder="Ej: 5" />
                         </div>
+                        <SelectorAvatar
+                          value={mascotaForm.avatar}
+                          onChange={(avatar) => setMascotaForm((f) => ({ ...f, avatar }))}
+                        />
                       </div>
                       <div className="cp-form-footer">
                         <button className="cp-btn-cancelar" onClick={() => setAgregandoMascotaId(null)}>Cancelar</button>
@@ -388,7 +555,7 @@ export default function ClientesPanel() {
                   )}
 
                   <div className="cp-detail-actions">
-                    <button className="cp-btn-editar">Editar cliente</button>
+                    <button className="cp-btn-editar" onClick={() => abrirEdicion(c)}>Editar cliente</button>
                     <button className="cp-btn-editar" onClick={() => setAgregandoMascotaId(c.id)}>Agregar mascota</button>
                     <button className="cp-btn-eliminar" onClick={() => eliminar(c.id)}>Eliminar</button>
                   </div>

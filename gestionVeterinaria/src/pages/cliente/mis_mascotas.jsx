@@ -4,6 +4,15 @@ import { useAuth } from "../../context/AuthContext";
 
 const API_URL = "http://localhost:3000/api";
 
+const AVATARES_MASCOTA = {
+  perro: "\u{1F436}",
+  gato: "\u{1F431}",
+  conejo: "\u{1F430}",
+  loro: "\u{1F99C}",
+  hamster: "\u{1F439}",
+  tortuga: "\u{1F422}",
+};
+
 const TarjetaMascota = ({ mascota }) => {
   return (
     <div className="col-sm-6 col-lg-4 mb-4">
@@ -12,7 +21,9 @@ const TarjetaMascota = ({ mascota }) => {
           {mascota.foto ? (
             <img src={mascota.foto} alt={mascota.nombre} className="card-img-top" />
           ) : (
-            <div className="foto-placeholder">Mascota</div>
+            <div className="foto-placeholder">
+              <span className="mascota-avatar">{AVATARES_MASCOTA[mascota.avatar] || AVATARES_MASCOTA.perro}</span>
+            </div>
           )}
         </div>
         <div className="card-body">
