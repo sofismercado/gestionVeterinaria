@@ -101,6 +101,23 @@
   color: #64748B;
   margin: 0;
 }
+
+.turnos-global-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 16px;
+  padding: 12px 0 6px;
+  border-top: 1px solid #E5E7EB;
+}
+
+.turnos-global-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: #0F172A;
+  margin: 0;
+}
  
 .ver-btn {
   font-size: 10px;

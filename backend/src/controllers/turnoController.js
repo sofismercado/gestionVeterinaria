@@ -1,4 +1,4 @@
-const { Turno, Mascota, Usuario } = require("../models");
+const { sequelize, Turno, Mascota, Usuario } = require("../models");
 
 async function listarTurnos(req, res) {
   try {
@@ -29,6 +29,8 @@ async function listarTurnos(req, res) {
 }
 
 async function crearTurno(req, res) {
+  let transaction;
+
   try {
     const { fecha, hora, motivo, estado = "disponible" } = req.body;
 
@@ -41,18 +43,30 @@ async function crearTurno(req, res) {
     }
 
     if (estado === "sin_atencion") {
-      const diaExistente = await Turno.findOne({ where: { fecha, estado: "sin_atencion" } });
+      transaction = await sequelize.transaction();
+      const diaExistente = await Turno.findOne({
+        where: { fecha, estado: "sin_atencion" },
+        transaction,
+      });
       if (diaExistente) {
+        await transaction.rollback();
         return res.status(400).json({ mensaje: "Ese dia ya esta marcado sin atencion." });
       }
 
-      const turnoPedido = await Turno.findOne({ where: { fecha, estado: "pendiente" } });
-      const turnoConfirmado = await Turno.findOne({ where: { fecha, estado: "confirmado" } });
+      const turnoPedido = await Turno.findOne({
+        where: { fecha, estado: "pendiente" },
+        transaction,
+      });
+      const turnoConfirmado = await Turno.findOne({
+        where: { fecha, estado: "confirmado" },
+        transaction,
+      });
       if (turnoPedido || turnoConfirmado) {
+        await transaction.rollback();
         return res.status(400).json({ mensaje: "No se puede marcar sin atencion un dia con turnos pedidos." });
       }
 
-      await Turno.destroy({ where: { fecha, estado: "disponible" } });
+      await Turno.destroy({ where: { fecha, estado: "disponible" }, transaction });
     }
 
     if (estado === "disponible") {
@@ -73,10 +87,17 @@ async function crearTurno(req, res) {
       motivo: motivo || null,
       estado,
       adminId: req.user.id,
-    });
+    }, { transaction });
+
+    if (transaction) {
+      await transaction.commit();
+    }
 
     res.status(201).json(turno);
   } catch (error) {
+    if (transaction && !transaction.finished) {
+      await transaction.rollback();
+    }
     res.status(500).json({ mensaje: "Error al crear turno.", error: error.message });
   }
 }
@@ -128,28 +149,40 @@ async function actualizarTurno(req, res) {
       }
 
       if (reprogramarTurnoId) {
-        const turnoAnterior = await Turno.findOne({
-          where: { id: reprogramarTurnoId, clienteId: req.user.id },
+        await sequelize.transaction(async (transaction) => {
+          const turnoAnterior = await Turno.findOne({
+            where: { id: reprogramarTurnoId, clienteId: req.user.id },
+            transaction,
+          });
+
+          if (!turnoAnterior || !["pendiente", "confirmado"].includes(turnoAnterior.estado)) {
+            const error = new Error("No se encontro un turno valido para reprogramar.");
+            error.status = 400;
+            throw error;
+          }
+
+          await turnoAnterior.update({
+            estado: "disponible",
+            clienteId: null,
+            mascotaId: null,
+            motivo: null,
+          }, { transaction });
+
+          await turno.update({
+            estado: "pendiente",
+            clienteId: req.user.id,
+            mascotaId,
+            motivo,
+          }, { transaction });
         });
-
-        if (!turnoAnterior || !["pendiente", "confirmado"].includes(turnoAnterior.estado)) {
-          return res.status(400).json({ mensaje: "No se encontro un turno valido para reprogramar." });
-        }
-
-        await turnoAnterior.update({
-          estado: "disponible",
-          clienteId: null,
-          mascotaId: null,
-          motivo: null,
+      } else {
+        await turno.update({
+          estado: "pendiente",
+          clienteId: req.user.id,
+          mascotaId,
+          motivo,
         });
       }
-
-      await turno.update({
-        estado: "pendiente",
-        clienteId: req.user.id,
-        mascotaId,
-        motivo,
-      });
 
       return res.json(turno);
     }
@@ -177,7 +210,10 @@ async function actualizarTurno(req, res) {
     await turno.update(datos);
     res.json(turno);
   } catch (error) {
-    res.status(500).json({ mensaje: "Error al actualizar turno.", error: error.message });
+    res.status(error.status || 500).json({
+      mensaje: error.status ? error.message : "Error al actualizar turno.",
+      error: error.message,
+    });
   }
 }
 

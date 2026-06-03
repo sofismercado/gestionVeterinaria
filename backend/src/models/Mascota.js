@@ -19,8 +19,13 @@ const Mascota = sequelize.define("Mascota", {
     allowNull: true,
   },
   peso: {
-    type: DataTypes.FLOAT,
+    type: DataTypes.DECIMAL(6, 2),
     allowNull: true,
+  },
+  avatar: {
+    type: DataTypes.ENUM("perro", "gato", "conejo", "loro", "hamster", "tortuga"),
+    allowNull: false,
+    defaultValue: "perro",
   },
 });
 

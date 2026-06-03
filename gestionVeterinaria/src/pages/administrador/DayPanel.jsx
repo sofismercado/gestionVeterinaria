@@ -14,7 +14,37 @@ function formatDate({ year, month, day }) {
   return `${dowStr.charAt(0).toUpperCase() + dowStr.slice(1)} ${day} de ${MONTHS_GEN[month]}`;
 }
 
-export default function DayPanel({ selectedDate, turnos, horarios = [], diaNoAtencion, error, onActualizarEstado, onEliminarTurno }) {
+function formatApiDate(fecha) {
+  const [year, month, day] = fecha.split("-").map(Number);
+  return `${day}/${month}/${year}`;
+}
+
+function TurnoItem({ turno, mostrarFecha = false, onActualizarEstado, onEliminarTurno }) {
+  return (
+    <div className="turno-item">
+      <span className="turno-hora">{turno.hora}</span>
+      <div className="turno-info">
+        <p className="turno-nombre">{turno.nombre}</p>
+        {mostrarFecha && <p className="turno-raza">{formatApiDate(turno.fecha)}</p>}
+        <p className="turno-raza">{turno.raza}</p>
+        <p className="turno-motivo">{turno.motivo}</p>
+        <p className="turno-motivo">Cliente: {turno.cliente || "-"}</p>
+        <p className="turno-motivo">Estado: {turno.estado}</p>
+      </div>
+      {turno.estado === "pendiente" ? (
+        <div className="usuario-actions">
+          <button className="ver-btn" onClick={() => onActualizarEstado(turno.id, "confirmado")}>Aceptar</button>
+          <button className="ver-btn" onClick={() => onActualizarEstado(turno.id, "disponible")}>Rechazar</button>
+          <button className="ver-btn danger" onClick={() => onEliminarTurno(turno.id)}>Borrar</button>
+        </div>
+      ) : (
+        <button className="ver-btn danger" onClick={() => onEliminarTurno(turno.id)}>Borrar</button>
+      )}
+    </div>
+  );
+}
+
+export default function DayPanel({ selectedDate, turnos, turnosSolicitados = [], horarios = [], diaNoAtencion, error, onActualizarEstado, onEliminarTurno }) {
   return (
     <aside className="day-panel">
       <div className="panel-header">
@@ -41,25 +71,12 @@ export default function DayPanel({ selectedDate, turnos, horarios = [], diaNoAte
           <p className="turno-empty">No hay turnos pedidos para este día</p>
         ) : !diaNoAtencion && (
           turnos.map((t) => (
-            <div key={t.id} className="turno-item">
-              <span className="turno-hora">{t.hora}</span>
-              <div className="turno-info">
-                <p className="turno-nombre">{t.nombre}</p>
-                <p className="turno-raza">{t.raza}</p>
-                <p className="turno-motivo">{t.motivo}</p>
-                <p className="turno-motivo">Cliente: {t.cliente || "-"}</p>
-                <p className="turno-motivo">Estado: {t.estado}</p>
-              </div>
-              {t.estado === "pendiente" ? (
-                <div className="usuario-actions">
-                  <button className="ver-btn" onClick={() => onActualizarEstado(t.id, "confirmado")}>Aceptar</button>
-                  <button className="ver-btn" onClick={() => onActualizarEstado(t.id, "disponible")}>Rechazar</button>
-                  <button className="ver-btn danger" onClick={() => onEliminarTurno(t.id)}>Borrar</button>
-                </div>
-              ) : (
-                <button className="ver-btn danger" onClick={() => onEliminarTurno(t.id)}>Borrar</button>
-              )}
-            </div>
+            <TurnoItem
+              key={t.id}
+              turno={t}
+              onActualizarEstado={onActualizarEstado}
+              onEliminarTurno={onEliminarTurno}
+            />
           ))
         )}
 
@@ -76,6 +93,25 @@ export default function DayPanel({ selectedDate, turnos, horarios = [], diaNoAte
               </div>
             ))}
           </>
+        )}
+
+        <div className="turnos-global-header">
+          <p className="turnos-global-title">Turnos pendientes de aceptacion</p>
+          <span className="panel-badge badge-gray">{turnosSolicitados.length}</span>
+        </div>
+
+        {turnosSolicitados.length === 0 ? (
+          <p className="turno-empty">No hay turnos pendientes</p>
+        ) : (
+          turnosSolicitados.map((t) => (
+            <TurnoItem
+              key={`global-${t.id}`}
+              turno={t}
+              mostrarFecha
+              onActualizarEstado={onActualizarEstado}
+              onEliminarTurno={onEliminarTurno}
+            />
+          ))
         )}
       </div>
     </aside>

@@ -33,6 +33,17 @@ const formatDateKeyFromApi = (fecha) => {
   return `${year}-${month}-${day}`;
 };
 
+const formatTurno = (turno) => ({
+  id: turno.id,
+  fecha: turno.fecha,
+  hora: turno.hora?.slice(0, 5),
+  nombre: turno.mascota?.nombre || "Mascota",
+  raza: [turno.mascota?.especie, turno.mascota?.raza].filter(Boolean).join(" - "),
+  motivo: turno.motivo,
+  estado: turno.estado,
+  cliente: turno.cliente?.nombre,
+});
+
 function buildUpcomingDays(turnos) {
   const agrupadas = turnos.reduce((acc, turno) => {
     if (turno.estado !== "disponible") return acc;
@@ -123,15 +134,12 @@ export default function TurnosPanel() {
       turno.estado !== "disponible" &&
       turno.estado !== "sin_atencion"
     )
-    .map((turno) => ({
-      id: turno.id,
-      hora: turno.hora?.slice(0, 5),
-      nombre: turno.mascota?.nombre || "Mascota",
-      raza: [turno.mascota?.especie, turno.mascota?.raza].filter(Boolean).join(" - "),
-      motivo: turno.motivo,
-      estado: turno.estado,
-      cliente: turno.cliente?.nombre,
-    }));
+    .map(formatTurno);
+
+  const turnosSolicitados = turnos
+    .filter((turno) => turno.estado === "pendiente")
+    .sort((a, b) => `${a.fecha} ${a.hora || ""}`.localeCompare(`${b.fecha} ${b.hora || ""}`))
+    .map(formatTurno);
 
   const horariosDelDia = turnos.filter((turno) =>
     formatDateKeyFromApi(turno.fecha) === selectedKey &&
@@ -235,6 +243,7 @@ export default function TurnosPanel() {
       <DayPanel
         selectedDate={selectedDate}
         turnos={turnosDelDia}
+        turnosSolicitados={turnosSolicitados}
         horarios={horariosDisponiblesDelDia}
         diaNoAtencion={diaNoAtencionSeleccionado}
         error={error}

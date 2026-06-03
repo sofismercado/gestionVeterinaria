@@ -1,5 +1,5 @@
 const bcrypt = require("bcrypt");
-const { Usuario, Mascota, Turno } = require("../models");
+const { Usuario, Mascota } = require("../models");
 
 async function listarUsuarios(req, res) {
   try {
@@ -113,9 +113,6 @@ async function eliminarUsuario(req, res) {
       return res.status(403).json({ mensaje: "No tenes permiso para eliminar este usuario." });
     }
 
-    await Turno.destroy({ where: { clienteId: usuario.id } });
-    await Turno.update({ adminId: null }, { where: { adminId: usuario.id } });
-    await Mascota.destroy({ where: { usuarioId: usuario.id } });
     await usuario.destroy();
 
     res.json({ mensaje: "Usuario eliminado correctamente." });

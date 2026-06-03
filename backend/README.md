@@ -33,6 +33,17 @@ npm install
 npm run dev
 ```
 
+## Cambios de base de datos
+
+Antes de levantar una version nueva del backend, ejecutar:
+
+```bash
+npm run db:migrate
+```
+
+El servidor crea las tablas faltantes al iniciar, pero los cambios sobre tablas existentes
+se aplican mediante migraciones controladas.
+
 ## Endpoints iniciales
 
 - `POST /api/auth/login`

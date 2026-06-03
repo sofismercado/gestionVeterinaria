@@ -17,13 +17,18 @@ async function listarMascotas(req, res) {
 
 async function crearMascota(req, res) {
   try {
-    const { nombre, especie, raza, edad, peso, usuarioId } = req.body;
+    const { nombre, especie, raza, edad, peso, avatar, usuarioId } = req.body;
 
     if (!nombre || !especie || !usuarioId) {
       return res.status(400).json({ mensaje: "Nombre, especie y usuarioId son obligatorios." });
     }
 
-    const mascota = await Mascota.create({ nombre, especie, raza, edad, peso, usuarioId });
+    const duenio = await Usuario.findByPk(usuarioId);
+    if (!duenio || duenio.rol !== "cliente") {
+      return res.status(400).json({ mensaje: "El duenio de la mascota debe ser un cliente valido." });
+    }
+
+    const mascota = await Mascota.create({ nombre, especie, raza, edad, peso, avatar, usuarioId });
     res.status(201).json(mascota);
   } catch (error) {
     res.status(500).json({ mensaje: "Error al crear mascota.", error: error.message });
@@ -38,7 +43,16 @@ async function actualizarMascota(req, res) {
       return res.status(404).json({ mensaje: "Mascota no encontrada." });
     }
 
-    await mascota.update(req.body);
+    const { nombre, especie, raza, edad, peso, avatar, usuarioId } = req.body;
+
+    if (usuarioId) {
+      const duenio = await Usuario.findByPk(usuarioId);
+      if (!duenio || duenio.rol !== "cliente") {
+        return res.status(400).json({ mensaje: "El duenio de la mascota debe ser un cliente valido." });
+      }
+    }
+
+    await mascota.update({ nombre, especie, raza, edad, peso, avatar, usuarioId });
     res.json(mascota);
   } catch (error) {
     res.status(500).json({ mensaje: "Error al actualizar mascota.", error: error.message });

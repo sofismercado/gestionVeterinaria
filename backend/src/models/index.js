@@ -4,13 +4,19 @@ const Mascota = require("./Mascota");
 const Turno = require("./Turno");
 
 Usuario.hasMany(Mascota, {
-  foreignKey: "usuarioId",
+  foreignKey: {
+    name: "usuarioId",
+    allowNull: false,
+  },
   as: "mascotas",
   onDelete: "CASCADE",
 });
 
 Mascota.belongsTo(Usuario, {
-  foreignKey: "usuarioId",
+  foreignKey: {
+    name: "usuarioId",
+    allowNull: false,
+  },
   as: "duenio",
   onDelete: "CASCADE",
 });

@@ -19,6 +19,14 @@ const Turno = sequelize.define("Turno", {
     allowNull: false,
     defaultValue: "disponible",
   },
+}, {
+  indexes: [
+    {
+      name: "turnos_fecha_hora_unique",
+      unique: true,
+      fields: ["fecha", "hora"],
+    },
+  ],
 });
 
 module.exports = Turno;
