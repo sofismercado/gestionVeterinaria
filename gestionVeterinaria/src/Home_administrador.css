@@ -6,14 +6,14 @@
 
 
 :root {
-  --verde_claro: #8b9078;
-  --amarillo_claro: #f7f9e0;
-  --naranja_claro: #dcc487;
-  --marron_claro: #887160;
+  --fondo_suave: #F3F7F5;
+  --superficie_blanca: #FFFFFF;
+  --verde_principal: #0E9F6E;
+  --texto_principal: #0F172A;
 }
 
 .bloc-notas {
-  background-color: var(--naranja_claro);
+  background-color: var(--verde_principal);
   border-radius: 20px;
   padding: 20px 24px;
   width: 340px;
@@ -62,7 +62,7 @@
   color: white;
   resize: none;
   outline: none;
-  font-family: sans-serif;
+  font-family: inherit;
   line-height: 1.5;
 }
 

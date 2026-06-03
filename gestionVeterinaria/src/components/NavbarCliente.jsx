@@ -13,22 +13,31 @@ const NavbarCliente = () => {
 
   return (
     <header className="navbar">
-      <h1>🐾 {user?.nombre}</h1>
+
       <nav className="navbar-links">
         <button className="boton-secundario" onClick={() => navigate("/home")}>
           Inicio
         </button>
-        <button className="boton-secundario" onClick={() => navigate("/mis-mascotas")}>
+        <button
+          className="boton-secundario"
+          onClick={() => navigate("/mis-mascotas")}
+        >
           Mis Mascotas
         </button>
-        <button className="boton-secundario" onClick={() => navigate("/mis-turnos")}>
+        <button
+          className="boton-secundario"
+          onClick={() => navigate("/mis-turnos")}
+        >
           Mis Turnos
         </button>
-        <button className="boton-secundario" onClick={() => navigate("/pedir-turno")}>
+        <button
+          className="boton-secundario"
+          onClick={() => navigate("/pedir-turno")}
+        >
           Pedir Turno
         </button>
         <button className="boton-secundario" onClick={handleLogout}>
-          Cerrar sesión
+          Cerrar sesion
         </button>
       </nav>
     </header>

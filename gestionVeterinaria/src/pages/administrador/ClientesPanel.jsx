@@ -381,7 +381,7 @@ export default function ClientesPanel() {
     <div className="cp-wrap">
       <div className="cp-topbar">
         <button className="cp-back" onClick={() => navigate(homePath)}>
-          Volver al menu
+          Volver al menú
         </button>
         <h1 className="cp-title">Nuestros clientes</h1>
       </div>
@@ -411,41 +411,41 @@ export default function ClientesPanel() {
           <div className="cp-form-grid">
             <div className="cp-field">
               <label>Nombre del dueño</label>
-              <input value={form.nombre} onChange={(e) => setForm((f) => ({ ...f, nombre: e.target.value }))} placeholder="Ej: Maria Garcia" />
+              <input value={form.nombre} onChange={(e) => setForm((f) => ({ ...f, nombre: e.target.value }))}  />
             </div>
             <div className="cp-field">
-              <label>Telefono</label>
-              <input value={form.tel} onChange={(e) => setForm((f) => ({ ...f, tel: e.target.value }))} placeholder="Ej: 341-555-1234" />
+              <label>Teléfono</label>
+              <input value={form.tel} onChange={(e) => setForm((f) => ({ ...f, tel: e.target.value }))}  />
             </div>
             <div className="cp-field">
               <label>Mail</label>
-              <input value={form.mail} onChange={(e) => setForm((f) => ({ ...f, mail: e.target.value }))} placeholder="Ej: maria@gmail.com" />
+              <input value={form.mail} onChange={(e) => setForm((f) => ({ ...f, mail: e.target.value }))}  />
             </div>
             <div className="cp-field">
               <label>Contraseña</label>
-              <input type="password" value={form.password} onChange={(e) => setForm((f) => ({ ...f, password: e.target.value }))} placeholder={editandoId ? "Nueva contrasena (opcional)" : "Contrasena inicial"} />
+              <input type="password" value={form.password} onChange={(e) => setForm((f) => ({ ...f, password: e.target.value }))} placeholder={editandoId ? "Nueva contraseña (opcional)" : ""} />
             </div>
             {!editandoId && (
               <>
                 <div className="cp-field">
                   <label>Nombre de mascota</label>
-                  <input value={form.mascota} onChange={(e) => setForm((f) => ({ ...f, mascota: e.target.value }))} placeholder="Ej: Lola" />
+                  <input value={form.mascota} onChange={(e) => setForm((f) => ({ ...f, mascota: e.target.value }))}  />
                 </div>
                 <div className="cp-field">
                   <label>Especie</label>
-                  <input value={form.especie} onChange={(e) => setForm((f) => ({ ...f, especie: e.target.value }))} placeholder="Ej: Perro" />
+                  <input value={form.especie} onChange={(e) => setForm((f) => ({ ...f, especie: e.target.value }))}  />
                 </div>
                 <div className="cp-field">
                   <label>Raza</label>
-                  <input value={form.raza} onChange={(e) => setForm((f) => ({ ...f, raza: e.target.value }))} placeholder="Ej: Beagle" />
+                  <input value={form.raza} onChange={(e) => setForm((f) => ({ ...f, raza: e.target.value }))}  />
                 </div>
                 <div className="cp-field">
                   <label>Edad</label>
-                  <input value={form.edad} onChange={(e) => setForm((f) => ({ ...f, edad: e.target.value }))} placeholder="Ej: 3" />
+                  <input value={form.edad} onChange={(e) => setForm((f) => ({ ...f, edad: e.target.value }))}  />
                 </div>
                 <div className="cp-field">
                   <label>Peso</label>
-                  <input value={form.peso} onChange={(e) => setForm((f) => ({ ...f, peso: e.target.value }))} placeholder="Ej: 12" />
+                  <input value={form.peso} onChange={(e) => setForm((f) => ({ ...f, peso: e.target.value }))}  />
                 </div>
                 <SelectorAvatar
                   value={form.avatar}
@@ -524,23 +524,23 @@ export default function ClientesPanel() {
                       <div className="cp-form-grid">
                         <div className="cp-field">
                           <label>Nombre</label>
-                          <input value={mascotaForm.nombre} onChange={(e) => setMascotaForm((f) => ({ ...f, nombre: e.target.value }))} placeholder="Ej: Mora" />
+                          <input value={mascotaForm.nombre} onChange={(e) => setMascotaForm((f) => ({ ...f, nombre: e.target.value }))}  />
                         </div>
                         <div className="cp-field">
                           <label>Especie</label>
-                          <input value={mascotaForm.especie} onChange={(e) => setMascotaForm((f) => ({ ...f, especie: e.target.value }))} placeholder="Ej: Gato" />
+                          <input value={mascotaForm.especie} onChange={(e) => setMascotaForm((f) => ({ ...f, especie: e.target.value }))}  />
                         </div>
                         <div className="cp-field">
                           <label>Raza</label>
-                          <input value={mascotaForm.raza} onChange={(e) => setMascotaForm((f) => ({ ...f, raza: e.target.value }))} placeholder="Ej: Comun" />
+                          <input value={mascotaForm.raza} onChange={(e) => setMascotaForm((f) => ({ ...f, raza: e.target.value }))}  />
                         </div>
                         <div className="cp-field">
                           <label>Edad</label>
-                          <input value={mascotaForm.edad} onChange={(e) => setMascotaForm((f) => ({ ...f, edad: e.target.value }))} placeholder="Ej: 2" />
+                          <input value={mascotaForm.edad} onChange={(e) => setMascotaForm((f) => ({ ...f, edad: e.target.value }))} />
                         </div>
                         <div className="cp-field">
                           <label>Peso</label>
-                          <input value={mascotaForm.peso} onChange={(e) => setMascotaForm((f) => ({ ...f, peso: e.target.value }))} placeholder="Ej: 5" />
+                          <input value={mascotaForm.peso} onChange={(e) => setMascotaForm((f) => ({ ...f, peso: e.target.value }))}  />
                         </div>
                         <SelectorAvatar
                           value={mascotaForm.avatar}

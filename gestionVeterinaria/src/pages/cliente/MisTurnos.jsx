@@ -33,7 +33,6 @@ const formatearHora = (hora) => {
 const TarjetaTurno = ({ turno, esProximo, onCancelar, onReprogramar }) => {
   const estado = turno.estado || "pendiente";
   const nombreMascota = turno.mascota?.nombre || "Mascota";
-  const veterinario = turno.admin?.nombre || "A confirmar";
 
   return (
     <div className="col-md-6 col-xl-4 mb-4">
@@ -54,9 +53,6 @@ const TarjetaTurno = ({ turno, esProximo, onCancelar, onReprogramar }) => {
           <ul className="list-unstyled card-text mb-3">
             <li>
               <span className="dato-label">Motivo:</span> {turno.motivo}
-            </li>
-            <li>
-              <span className="dato-label">Veterinario:</span> {veterinario}
             </li>
           </ul>
 

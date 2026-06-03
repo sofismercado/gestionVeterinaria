@@ -74,7 +74,7 @@ const Login = () => {
             />
           </div>
           <div className="input-group">
-            <label>Contrasena:</label>
+            <label>Contraseña:</label>
             <input
               type="password"
               placeholder="********"

@@ -1,18 +1,100 @@
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 
-const BotonMenu = ({ texto, onClick }) => {
-  return <button className="boton-principal" onClick={onClick}>{texto}</button>;
-};
+const acciones = [
+  {
+    titulo: "Mis mascotas",
+    descripcion: "Consulta la informacion registrada de tus mascotas.",
+    icono: "mascotas",
+    ruta: "/mis-mascotas",
+  },
+  {
+    titulo: "Mis turnos",
+    descripcion: "Revisa tus turnos pendientes y el historial.",
+    icono: "turnos",
+    ruta: "/mis-turnos",
+  },
+  {
+    titulo: "Pedir turno",
+    descripcion: "Reserva un nuevo horario disponible para atencion.",
+    icono: "pedir",
+    ruta: "/pedir-turno",
+  },
+];
 
 const tips = [
-  { emoji: "💉", texto: "Recordá vacunar a tu mascota regularmente." },
-  { emoji: "💧", texto: "Cambiá el agua de tu mascota todos los días." },
-  { emoji: "🦷", texto: "Cepillá los dientes de tu mascota al menos una vez por semana." },
-  { emoji: "🏃", texto: "Los perros necesitan ejercicio diario para mantenerse sanos." },
-  { emoji: "🍎", texto: "Evitá darle comida humana a tu mascota, puede hacerle daño." },
-  { emoji: "🔍", texto: "Revisá a tu mascota por pulgas y garrapatas periódicamente." },
+  { icono: "01", texto: "Recorda vacunar a tu mascota regularmente." },
+  { icono: "02", texto: "Cambia el agua de tu mascota todos los dias." },
+  { icono: "03", texto: "Cepilla sus dientes al menos una vez por semana." },
+  { icono: "04", texto: "Los perros necesitan ejercicio diario." },
+  { icono: "05", texto: "Evita darle comida humana sin indicacion veterinaria." },
 ];
+
+function AccionCard({ accion, onClick }) {
+  return (
+    <button className="home-action-card" type="button" onClick={onClick}>
+      <span className="home-action-icon">
+        <IconoAccion tipo={accion.icono} />
+      </span>
+      <span className="home-action-text">
+        <strong>{accion.titulo}</strong>
+        <small>{accion.descripcion}</small>
+      </span>
+      <span className="home-action-arrow">&gt;</span>
+    </button>
+  );
+}
+
+function IconoAccion({ tipo }) {
+  if (tipo === "turnos") {
+    return (
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <rect x="4" y="5" width="16" height="15" rx="3" />
+        <path d="M8 3v4M16 3v4M4 10h16M8 14h3M13 14h3M8 17h3" />
+      </svg>
+    );
+  }
+
+  if (tipo === "pedir") {
+    return (
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="12" cy="12" r="8" />
+        <path d="M12 8v8M8 12h8" />
+      </svg>
+    );
+  }
+
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <circle cx="7" cy="8" r="2" />
+      <circle cx="12" cy="6" r="2" />
+      <circle cx="17" cy="8" r="2" />
+      <circle cx="9" cy="13" r="2" />
+      <circle cx="15" cy="13" r="2" />
+      <path d="M7 17c1.5-2.2 3-3.2 5-3.2s3.5 1 5 3.2c.8 1.2 0 3-1.5 3h-7c-1.5 0-2.3-1.8-1.5-3Z" />
+    </svg>
+  );
+}
+
+function TipsPanel() {
+  return (
+    <aside className="home-tips-card">
+      <div className="home-card-header">
+        <span className="home-card-kicker">Consejos</span>
+        <h3>Tips para tu mascota</h3>
+      </div>
+
+      <div className="home-tips-list">
+        {tips.map((tip) => (
+          <article className="home-tip-item" key={tip.texto}>
+            <span>{tip.icono}</span>
+            <p>{tip.texto}</p>
+          </article>
+        ))}
+      </div>
+    </aside>
+  );
+}
 
 function HomeCliente() {
   const { user, logout } = useAuth();
@@ -25,30 +107,38 @@ function HomeCliente() {
 
   return (
     <div className="contenedor-padre">
-      <header className="navbar">
-        <h1>Hola {user?.nombre}! 🐾</h1>
-        <button className="boton-secundario" onClick={handleLogout}>Cerrar sesión</button>
-      </header>
-      <main className="contenido">
-        <div className="columna-botones">
-          <BotonMenu texto="MIS MASCOTAS" onClick={() => navigate("/mis-mascotas")} />
-          <BotonMenu texto="TURNOS" onClick={() => navigate("/mis-turnos")} />
-          <BotonMenu texto="PEDIR TURNO" onClick={() => navigate("/pedir-turno")} />
+      <header className="home-cliente-header">
+        <div>
+          <p className="home-cliente-subtitle">Panel del cliente</p>
+          <h1>🐾Hola, {user?.nombre || "cliente"}</h1>
         </div>
+        <button className="home-logout-btn" type="button" onClick={handleLogout}>
+          Cerrar sesion
+        </button>
+      </header>
 
-        <div className="tablero-tips">
-          <h3 className="tips-titulo">💡 Tips para tu mascota</h3>
-          <div className="tips-lista">
-            {tips.map((tip, index) => (
-              <div key={index} className="tip-card">
-                <span className="tip-emoji">{tip.emoji}</span>
-                <p>{tip.texto}</p>
-              </div>
+      <main className="home-dashboard">
+        <section className="home-actions-card">
+          <div className="home-card-header">
+            <span className="home-card-kicker">Accesos rapidos</span>
+            <h2>Que queres hacer hoy?</h2>
+          </div>
+
+          <div className="home-actions-list">
+            {acciones.map((accion) => (
+              <AccionCard
+                accion={accion}
+                key={accion.ruta}
+                onClick={() => navigate(accion.ruta)}
+              />
             ))}
           </div>
-        </div>
+        </section>
+
+        <TipsPanel />
       </main>
     </div>
   );
 }
+
 export default HomeCliente;

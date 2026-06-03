@@ -14,28 +14,35 @@ const AVATARES_MASCOTA = {
 };
 
 const TarjetaMascota = ({ mascota }) => {
+  const especie = mascota.especie || "Mascota";
+  const raza = mascota.raza || "Sin raza";
+  const edad = mascota.edad ? `${mascota.edad} años` : "Edad no cargada";
+  const peso = mascota.peso ? `${mascota.peso} kg` : "Peso no cargado";
+
   return (
     <div className="col-sm-6 col-lg-4 mb-4">
-      <div className="card h-100 shadow-sm mascota-card">
-        <div className="mascota-foto">
+      <article className="mis-mascotas-card h-100">
+        <div className="mis-mascotas-avatar-wrap">
           {mascota.foto ? (
-            <img src={mascota.foto} alt={mascota.nombre} className="card-img-top" />
+            <img src={mascota.foto} alt={mascota.nombre} className="mis-mascotas-img" />
           ) : (
-            <div className="foto-placeholder">
-              <span className="mascota-avatar">{AVATARES_MASCOTA[mascota.avatar] || AVATARES_MASCOTA.perro}</span>
+            <div className="mis-mascotas-avatar">
+              {AVATARES_MASCOTA[mascota.avatar] || AVATARES_MASCOTA.perro}
             </div>
           )}
         </div>
-        <div className="card-body">
-          <h5 className="card-title">{mascota.nombre}</h5>
-          <ul className="list-unstyled card-text">
-            <li><span className="dato-label">Especie:</span> {mascota.especie || "-"}</li>
-            <li><span className="dato-label">Raza:</span> {mascota.raza || "-"}</li>
-            <li><span className="dato-label">Edad:</span> {mascota.edad ? `${mascota.edad} anios` : "-"}</li>
-            <li><span className="dato-label">Peso:</span> {mascota.peso ? `${mascota.peso} kg` : "-"}</li>
-          </ul>
+
+        <div className="mis-mascotas-body">
+          <p className="mis-mascotas-kicker">{especie}</p>
+          <h5 className="mis-mascotas-nombre">{mascota.nombre}</h5>
+
+          <div className="mis-mascotas-chips">
+            <span>{raza}</span>
+            <span>{edad}</span>
+            <span>{peso}</span>
+          </div>
         </div>
-      </div>
+      </article>
     </div>
   );
 };
@@ -80,13 +87,17 @@ function MisMascotas() {
     <div className="contenedor-padre">
       <NavbarCliente />
       <main>
+        <section className="mis-mascotas-header">
+          <h2>Mis mascotas</h2>
+        </section>
+
         {error && <p className="sin-mascotas">{error}</p>}
         {loading && <p className="sin-mascotas">Cargando mascotas...</p>}
 
         {!loading && mascotas.length === 0 ? (
           <p className="sin-mascotas">Todavia no tenes mascotas registradas.</p>
         ) : (
-          <div className="row">
+          <div className="row mis-mascotas-grid">
             {mascotas.map((m) => (
               <TarjetaMascota key={m.id} mascota={m} />
             ))}

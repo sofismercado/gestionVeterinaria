@@ -32,7 +32,6 @@ export default function Sidebar({ onNuevoTurno }) {
         <div className="legend-item"><span className="dot dot-green" /> Dia con turnos disponibles</div>
         <div className="legend-item"><span className="dot dot-yellow" /> Dia con pocos turnos disponibles</div>
         <div className="legend-item"><span className="dot dot-red" /> Sin turnos disponibles</div>
-        <div className="legend-item"><span className="dot dot-gray" /> Dia sin atencion</div>
       </div>
     </aside>
   );

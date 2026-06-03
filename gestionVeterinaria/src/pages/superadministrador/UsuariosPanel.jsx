@@ -86,8 +86,8 @@ function UsuariosPanel() {
       email: usuario.email || "",
       telefono: usuario.telefono || "",
       password: "",
-      rol: usuario.rol || "cliente",
-      estado: usuario.estado || "activo",
+      rol: usuario.rol || "Cliente",
+      estado: usuario.estado || "Activo",
     });
     setEditandoId(usuario.id);
     setError("");
@@ -107,11 +107,11 @@ function UsuariosPanel() {
     }
 
     if (!form.email.includes("@")) {
-      return "El email debe tener un formato valido.";
+      return "El email debe tener un formato vÁlido.";
     }
 
     if (!editandoId && !form.password.trim()) {
-      return "La contrasena es obligatoria al crear un usuario.";
+      return "La contraseña es obligatoria al crear un usuario.";
     }
 
     return "";
@@ -163,7 +163,7 @@ function UsuariosPanel() {
   const eliminarUsuario = async (id) => {
     const usuario = usuarios.find((item) => item.id === id);
     const confirmado = window.confirm(
-      `¿Estas seguro de que queres eliminar al usuario ${usuario?.nombre || ""}?`
+      `¿Estás seguro de que querés eliminar al usuario ${usuario?.nombre || ""}?`
     );
 
     if (!confirmado) return;
@@ -236,13 +236,13 @@ function UsuariosPanel() {
             />
             <input
               type="text"
-              placeholder="Telefono"
+              placeholder="Teléfono"
               value={form.telefono}
               onChange={(event) => setForm((prev) => ({ ...prev, telefono: event.target.value }))}
             />
             <input
               type="password"
-              placeholder={editandoId ? "Nueva contrasena (opcional)" : "Contrasena"}
+              placeholder={editandoId ? "Nueva contraseña" : "Contraseña"}
               value={form.password}
               onChange={(event) => setForm((prev) => ({ ...prev, password: event.target.value }))}
             />

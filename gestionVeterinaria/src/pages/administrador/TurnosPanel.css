@@ -4,11 +4,11 @@
   display: grid;
   grid-template-columns: 220px 1fr 280px;
   min-height: 600px;
-  border: 1px solid #e0d8cc;
+  border: 1px solid #E5E7EB;
   border-radius: 12px;
   overflow: hidden;
-  background: #f5f0e8;
-  font-family: 'Segoe UI', sans-serif;
+  background: #F8FAFC;
+  font-family: inherit;
 }
 
 
@@ -16,11 +16,11 @@
   display: grid;
   grid-template-columns: 220px 1fr 280px;
   min-height: 600px;
-  border: 1px solid #e0d8cc;
+  border: 1px solid #E5E7EB;
   border-radius: 12px;
   overflow: hidden;
-  background: #f5f0e8;
-  font-family: 'Segoe UI', sans-serif;
+  background: #F8FAFC;
+  font-family: inherit;
 }
  
 /* ── TurnosPanel.css ── */
@@ -29,11 +29,11 @@
   display: grid;
   grid-template-columns: 220px 1fr 280px;
   min-height: 600px;
-  border: 1px solid #e0d8cc;
+  border: 1px solid #E5E7EB;
   border-radius: 12px;
   overflow: hidden;
-  background: #f5f0e8;
-  font-family: 'Segoe UI', sans-serif;
+  background: #F8FAFC;
+  font-family: inherit;
 }
 
 /* ── Tablet: sidebar colapsa, panel derecho se achica ── */

@@ -1,154 +1,4 @@
 /* ── DayPanel.css ── */
-
-.day-panel {
-  background: #fff;
-  padding: 1.25rem 1rem;
-  display: flex;
-  flex-direction: column;
-}
-
-/* ── Header ── */
-
-.panel-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  margin-bottom: 1rem;
-  flex-wrap: wrap;
-}
-
-.panel-date {
-  font-size: 13px;
-  font-weight: 600;
-  color: #3a2a14;
-}
-
-.panel-badge {
-  font-size: 10px;
-  padding: 3px 9px;
-  border-radius: 20px;
-  font-weight: 600;
-  white-space: nowrap;
-}
-
-.badge-green { background: #e6f4ec; color: #2d7a4f; }
-.badge-gray  { background: #f0ece5; color: #9e8c75; }
-
-/* ── Lista de turnos ── */
-
-.turno-list {
-  flex: 1;
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-}
-
-.turno-list::-webkit-scrollbar {
-  width: 3px;
-}
-
-.turno-list::-webkit-scrollbar-thumb {
-  background: #e0d8cc;
-  border-radius: 2px;
-}
-
-.turno-empty {
-  padding: 1rem;
-  font-size: 12px;
-  color: #9e8c75;
-  text-align: center;
-}
-
-.turno-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 9px 4px;
-  border-bottom: 1px solid #f0ece5;
-}
-
-.turno-item:last-child {
-  border-bottom: none;
-}
-
-.turno-hora {
-  font-size: 12px;
-  font-weight: 600;
-  color: #c8a96e;
-  min-width: 38px;
-}
-
-.turno-info {
-  flex: 1;
-}
-
-.turno-nombre {
-  font-size: 12px;
-  font-weight: 600;
-  color: #3a2a14;
-  margin: 0 0 2px;
-}
-
-.turno-raza {
-  font-size: 10px;
-  color: #6b5a40;
-  margin: 0 0 1px;
-}
-
-.turno-motivo {
-  font-size: 10px;
-  color: #9e8c75;
-  margin: 0;
-}
-
-.ver-btn {
-  font-size: 10px;
-  padding: 3px 8px;
-  border: 1px solid #e0d8cc;
-  border-radius: 6px;
-  background: none;
-  cursor: pointer;
-  color: #6b5a40;
-  transition: background 0.12s;
-  white-space: nowrap;
-}
-
-.ver-btn:hover {
-  background: #f5f0e8;
-}
-
-.ver-btn.danger {
-  border-color: #f0c7c7;
-  color: #b34b4b;
-}
-
-.ver-btn.danger:hover {
-  background: #fff0f0;
-}
-
-/* ── Botón ver todos ── */
-
-.ver-todos-btn {
-  margin-top: 0.75rem;
-  background: #c8a96e;
-  border: none;
-  border-radius: 8px;
-  padding: 0.65rem;
-  font-size: 12px;
-  font-weight: 600;
-  color: #3a2a14;
-  cursor: pointer;
-  width: 100%;
-  transition: background 0.15s;
-}
-
-.ver-todos-btn:hover {
-  background: #d4b97e;
-}
-
-
-/* ── DayPanel.css ── */
  
 .day-panel {
   background: #fff;
@@ -171,7 +21,7 @@
 .panel-date {
   font-size: 13px;
   font-weight: 600;
-  color: #3a2a14;
+  color: #ffffff;
 }
  
 .panel-badge {
@@ -182,8 +32,8 @@
   white-space: nowrap;
 }
  
-.badge-green { background: #e6f4ec; color: #2d7a4f; }
-.badge-gray  { background: #f0ece5; color: #9e8c75; }
+.badge-green { background: #ECFDF5; color: #047857; }
+.badge-gray  { background: #F1F5F9; color: #64748B; }
  
 /* ── Lista de turnos ── */
  
@@ -199,14 +49,14 @@
 }
  
 .turno-list::-webkit-scrollbar-thumb {
-  background: #e0d8cc;
+  background: #E5E7EB;
   border-radius: 2px;
 }
  
 .turno-empty {
   padding: 1rem;
   font-size: 12px;
-  color: #9e8c75;
+  color: #64748B;
   text-align: center;
 }
  
@@ -215,7 +65,7 @@
   align-items: center;
   gap: 10px;
   padding: 9px 4px;
-  border-bottom: 1px solid #f0ece5;
+  border-bottom: 1px solid #F1F5F9;
 }
  
 .turno-item:last-child {
@@ -225,7 +75,7 @@
 .turno-hora {
   font-size: 12px;
   font-weight: 600;
-  color: #c8a96e;
+  color: #0E9F6E;
   min-width: 38px;
 }
  
@@ -236,66 +86,47 @@
 .turno-nombre {
   font-size: 12px;
   font-weight: 600;
-  color: #3a2a14;
+  color: #0F172A;
   margin: 0 0 2px;
 }
  
 .turno-raza {
   font-size: 10px;
-  color: #6b5a40;
+  color: #475569;
   margin: 0 0 1px;
 }
  
 .turno-motivo {
   font-size: 10px;
-  color: #9e8c75;
+  color: #64748B;
   margin: 0;
 }
  
 .ver-btn {
   font-size: 10px;
   padding: 3px 8px;
-  border: 1px solid #e0d8cc;
+  border: 1px solid #E5E7EB;
   border-radius: 6px;
   background: none;
   cursor: pointer;
-  color: #6b5a40;
+  color: #475569;
   transition: background 0.12s;
   white-space: nowrap;
 }
  
 .ver-btn:hover {
-  background: #f5f0e8;
+  background: #F8FAFC;
 }
 
 .ver-btn.danger {
-  border-color: #f0c7c7;
-  color: #b34b4b;
+  border-color: #F5CACA;
+  color: #B23A3A;
 }
 
 .ver-btn.danger:hover {
-  background: #fff0f0;
+  background: #FFF0F0;
 }
  
-/* ── Botón ver todos ── */
- 
-.ver-todos-btn {
-  margin-top: 0.75rem;
-  background: #c8a96e;
-  border: none;
-  border-radius: 8px;
-  padding: 0.65rem;
-  font-size: 12px;
-  font-weight: 600;
-  color: #3a2a14;
-  cursor: pointer;
-  width: 100%;
-  transition: background 0.15s;
-}
- 
-.ver-todos-btn:hover {
-  background: #d4b97e;
-}
  
 /* ── Responsive ── */
  
@@ -348,8 +179,29 @@
     padding: 5px 10px;
   }
  
-  .ver-todos-btn {
-    padding: 0.75rem;
-    font-size: 13px;
-  }
+}
+
+/* Final professional overrides */
+.day-panel {
+  border-left: 1px solid #E5E7EB;
+  box-shadow: 0 16px 34px rgba(15,23,42,0.06);
+}
+
+.panel-badge,
+.ver-btn,
+.ver-btn.success {
+  border-radius: 12px;
+}
+
+.ver-btn {
+  background: #FFFFFF;
+}
+
+.ver-btn.success {
+  color: #FFFFFF;
+  box-shadow: 0 8px 18px rgba(14,159,110,0.14);
+}
+
+.ver-btn.success:hover {
+  background: #047857;
 }

@@ -1,40 +1,41 @@
 .pedir-turno-main {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 340px;
-  border: 1px solid #e0d8cc;
+  border: 1px solid #E5E7EB;
   border-radius: 12px;
   overflow: hidden;
-  background: #f5f0e8;
-  font-family: "Segoe UI", sans-serif;
+  background: #F8FAFC;
+  font-family: inherit;
 }
+
 
 .pedir-turno-panel {
   background: #fff;
   padding: 1.25rem;
-  border-left: 1px solid #e0d8cc;
+  border-left: 1px solid #E5E7EB;
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
 
 .pedir-turno-title {
-  color: #3a2a14;
+  color: #0F172A;
   font-size: 18px;
   font-weight: 700;
   margin: 0;
 }
 
 .pedir-turno-subtitle {
-  color: #9e8c75;
+  color: #64748B;
   font-size: 12px;
   margin: 0;
 }
 
 .pedir-turno-date {
-  background: #f5f0e8;
+  background: #F8FAFC;
   border-radius: 8px;
   padding: 0.75rem;
-  color: #3a2a14;
+  color: #0F172A;
   font-size: 13px;
   font-weight: 600;
 }
@@ -46,17 +47,17 @@
 }
 
 .pedir-turno-field label {
-  color: #6b5a40;
+  color: #475569;
   font-size: 12px;
   font-weight: 600;
 }
 
 .pedir-turno-field select,
 .pedir-turno-field textarea {
-  border: 1px solid #e0d8cc;
+  border: 1px solid #E5E7EB;
   border-radius: 8px;
   padding: 0.65rem;
-  color: #3a2a14;
+  color: #0F172A;
   background: #fff;
   outline: none;
   font-size: 13px;
@@ -74,10 +75,10 @@
 }
 
 .horario-btn {
-  border: 1px solid #e0d8cc;
+  border: 1px solid #E5E7EB;
   border-radius: 8px;
   background: #fff;
-  color: #6b5a40;
+  color: #475569;
   padding: 0.55rem 0.35rem;
   font-size: 12px;
   cursor: pointer;
@@ -85,12 +86,12 @@
 }
 
 .horario-btn:hover {
-  background: #f5f0e8;
+  background: #F8FAFC;
 }
 
 .horario-btn.selected {
-  background: #c8a96e;
-  border-color: #c8a96e;
+  background: #0E9F6E;
+  border-color: #0E9F6E;
   color: #fff;
   font-weight: 700;
 }
@@ -98,8 +99,8 @@
 .confirmar-turno-btn {
   border: none;
   border-radius: 8px;
-  background: #c8a96e;
-  color: #3a2a14;
+  background: #0E9F6E;
+  color: #0F172A;
   padding: 0.8rem;
   font-size: 13px;
   font-weight: 700;
@@ -113,8 +114,8 @@
 }
 
 .turno-confirmado {
-  background: #e6f4ec;
-  color: #2d7a4f;
+  background: #ECFDF5;
+  color: #047857;
   border-radius: 8px;
   padding: 0.75rem;
   font-size: 12px;
@@ -128,7 +129,7 @@
 
   .pedir-turno-panel {
     border-left: none;
-    border-top: 1px solid #e0d8cc;
+    border-top: 1px solid #E5E7EB;
   }
 }
 
@@ -141,4 +142,29 @@
   .horarios-grid {
     grid-template-columns: repeat(2, 1fr);
   }
+}
+
+/* Final professional overrides */
+.pedir-turno-main {
+  border-radius: 20px;
+  box-shadow: 0 16px 34px rgba(15,23,42,0.08);
+}
+
+.pedir-turno-date,
+.pedir-turno-field select,
+.pedir-turno-field textarea,
+.horario-btn,
+.confirmar-turno-btn,
+.turno-confirmado {
+  border-radius: 12px;
+}
+
+.confirmar-turno-btn {
+  color: #FFFFFF;
+  box-shadow: 0 8px 18px rgba(14,159,110,0.14);
+}
+
+.horario-btn.selected {
+  background: #0E9F6E;
+  border-color: #0E9F6E;
 }

@@ -1,94 +1,7 @@
 /* ── Sidebar.css ── */
-
-.sidebar {
-  background: #5c4a32;
-  padding: 1.5rem 1rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.sidebar-title {
-  color: #e8d9c0;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  margin: 0 0 0.5rem;
-}
-
-.sidebar-buttons {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.sidebar-btn {
-  background: #c8a96e;
-  border: none;
-  border-radius: 8px;
-  padding: 0.85rem 1rem;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  cursor: pointer;
-  width: 100%;
-  color: #3a2a14;
-  font-size: 13px;
-  font-weight: 600;
-  transition: background 0.15s;
-}
-
-.sidebar-btn:hover {
-  background: #d4b97e;
-}
-
-.sidebar-btn.active {
-  background: #b8954e;
-}
-
-/* ── Leyenda ── */
-
-.legend {
-  background: #f5f0e8;
-  border-radius: 8px;
-  padding: 0.85rem;
-  margin-top: auto;
-}
-
-.legend-title {
-  font-size: 12px;
-  font-weight: 600;
-  color: #5c4a32;
-  margin: 0 0 0.6rem;
-}
-
-.legend-item {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 11px;
-  color: #6b5a40;
-  margin-bottom: 5px;
-}
-
-.dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  flex-shrink: 0;
-  display: inline-block;
-}
-
-.dot-green  { background: #4a9c6a; }
-.dot-yellow { background: #d4a017; }
-.dot-red    { background: #c0392b; }
-.dot-gray   { background: #b0a898; }
-
-/* ── Sidebar.css ── */
  
 .sidebar {
-  background: #5c4a32;
+  background: #ffffff;
   padding: 1.5rem 1rem;
   display: flex;
   flex-direction: column;
@@ -96,7 +9,7 @@
 }
  
 .sidebar-title {
-  color: #e8d9c0;
+  color: #9ba5a2;
   font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.08em;
@@ -111,33 +24,35 @@
 }
  
 .sidebar-btn {
-  background: #c8a96e;
+  background: #0E9F6E;
   border: none;
-  border-radius: 8px;
+  border-radius: 12px;
   padding: 0.85rem 1rem;
   display: flex;
   align-items: center;
   gap: 10px;
   cursor: pointer;
   width: 100%;
-  color: #3a2a14;
-  font-size: 13px;
+  color: #F8FAFC;
+  font-size: 12px;
   font-weight: 600;
-  transition: background 0.15s;
+  transition: opacity 0.15s;
+  opacity: 0.7;
+  margin-bottom: 12px;
 }
- 
+
 .sidebar-btn:hover {
-  background: #d4b97e;
+  opacity: 1;
 }
  
 .sidebar-btn.active {
-  background: #b8954e;
+  opacity: 1;
 }
  
 /* ── Leyenda ── */
  
 .legend {
-  background: #f5f0e8;
+  background: #F8FAFC;
   border-radius: 8px;
   padding: 0.85rem;
   margin-top: auto;
@@ -146,7 +61,7 @@
 .legend-title {
   font-size: 12px;
   font-weight: 600;
-  color: #5c4a32;
+  color: #0F172A;
   margin: 0 0 0.6rem;
 }
  
@@ -155,7 +70,7 @@
   align-items: center;
   gap: 8px;
   font-size: 11px;
-  color: #6b5a40;
+  color: #475569;
   margin-bottom: 5px;
 }
  
@@ -167,10 +82,9 @@
   display: inline-block;
 }
  
-.dot-green  { background: #4a9c6a; }
-.dot-yellow { background: #d4a017; }
-.dot-red    { background: #c0392b; }
-.dot-gray   { background: #b0a898; }
+.dot-green  { background: #047857; }
+.dot-yellow { background: #E6B423; }
+.dot-red    { background: #D94A3A; }
  
 /* ── Tablet: sidebar más compacto ── */
 @media (max-width: 900px) {
@@ -200,13 +114,12 @@
     align-items: center;
     justify-content: space-around;
     padding: 0.6rem 1rem;
-    border-top: 1px solid #4a3828;
+    border-top: 1px solid #071034;
     z-index: 100;
     border-radius: 0;
     gap: 0;
   }
  
-  /* Ocultar título y leyenda en mobile */
   .sidebar-title,
   .legend {
     display: none;
@@ -227,6 +140,7 @@
     border-radius: 8px;
     flex: 1;
     justify-content: center;
+    margin-bottom: 0;
   }
  
   .sidebar-btn svg {
@@ -234,8 +148,9 @@
     height: 20px;
   }
 }
-  /*boton volver*/
-  .back-btn {
+
+/* boton volver */
+.back-btn {
   margin-bottom: 12px;
   opacity: 0.7;
   font-size: 12px;
