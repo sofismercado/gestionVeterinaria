@@ -22,16 +22,17 @@ export default function Sidebar({ onNuevoTurno }) {
           </button>
           <button className="sidebar-btn back-btn" onClick={() => navigate(homePath)}>
             <BackIcon />
-            Volver al menu
+            Volver al menú
           </button>
         </div>
       </div>
 
       <div className="legend">
         <p className="legend-title">Referencias del calendario</p>
-        <div className="legend-item"><span className="dot dot-green" /> Dia con turnos disponibles</div>
-        <div className="legend-item"><span className="dot dot-yellow" /> Dia con pocos turnos disponibles</div>
+        <div className="legend-item"><span className="dot dot-green" /> Día con turnos disponibles</div>
+        <div className="legend-item"><span className="dot dot-yellow" /> Día con pocos turnos disponibles</div>
         <div className="legend-item"><span className="dot dot-red" /> Sin turnos disponibles</div>
+        <div className="legend-item"><span className="dot dot-gray" /> Día sin atención</div>
       </div>
     </aside>
   );

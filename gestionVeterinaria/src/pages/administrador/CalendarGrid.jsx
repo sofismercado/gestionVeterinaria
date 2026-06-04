@@ -10,6 +10,7 @@ const DOT_COLORS = {
   green:  "#4a9c6a",
   yellow: "#d4a017",
   red:    "#c0392b",
+  gray:   "#94A3B8"
 };
 
 export default function CalendarGrid({

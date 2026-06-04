@@ -16,8 +16,6 @@ const DAYS_LONG = [
   "domingo", "lunes", "martes", "miercoles", "jueves", "viernes", "sabado",
 ];
 
-const toDateKey = ({ year, month, day }) => `${year}-${month + 1}-${day}`;
-
 const toApiDate = ({ year, month, day }) => {
   const monthText = String(month + 1).padStart(2, "0");
   const dayText = String(day).padStart(2, "0");
@@ -39,11 +37,18 @@ const getInitialDate = () => {
   };
 };
 
-const getDots = (upcomingDays) => {
-  return upcomingDays.reduce((acc, day) => {
+const getDots = (upcomingDays, diasSinAtencion) => {
+  const dots = upcomingDays.reduce((acc, day) => {
     acc[day.key] = day.color;
     return acc;
   }, {});
+
+  diasSinAtencion.forEach((turno) => {
+    const [year, month, day] = turno.fecha.split("-").map(Number);
+    dots[`${year}-${month}-${day}`] = "gray";
+  });
+
+  return dots;
 };
 
 function PedirTurno() {
@@ -56,6 +61,7 @@ function PedirTurno() {
   const [currentMonth, setCurrentMonth] = useState({ year: initialDate.year, month: initialDate.month });
   const [mascotas, setMascotas] = useState([]);
   const [turnosDisponibles, setTurnosDisponibles] = useState([]);
+  const [diasSinAtencion, setDiasSinAtencion] = useState([]);
   const [mascotaId, setMascotaId] = useState("");
   const [horario, setHorario] = useState("");
   const [motivo, setMotivo] = useState("");
@@ -88,7 +94,7 @@ function PedirTurno() {
 
     return Object.values(agrupadas);
   }, [turnosDisponibles]);
-  const dots = useMemo(() => getDots(upcomingDays), [upcomingDays]);
+  const dots = useMemo(() => getDots(upcomingDays, diasSinAtencion), [upcomingDays, diasSinAtencion]);
   const horariosDisponibles = turnosDisponibles
     .filter((turno) =>
       turno.estado === "disponible" &&
@@ -105,7 +111,7 @@ function PedirTurno() {
         setLoading(true);
         setError("");
 
-        const [mascotasResponse, turnosResponse] = await Promise.all([
+        const [mascotasResponse, turnosResponse, sinAtencionResponse] = await Promise.all([
           fetch(`${API_URL}/mascotas`, {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -116,10 +122,16 @@ function PedirTurno() {
               Authorization: `Bearer ${token}`,
             },
           }),
+          fetch(`${API_URL}/turnos?estado=sin_atencion`, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }),
         ]);
 
         const mascotasData = await mascotasResponse.json();
         const turnosData = await turnosResponse.json();
+        const sinAtencionData = await sinAtencionResponse.json();
 
         if (!mascotasResponse.ok) {
           setError(mascotasData.mensaje || "No se pudieron cargar tus mascotas.");
@@ -131,9 +143,15 @@ function PedirTurno() {
           return;
         }
 
+        if (!sinAtencionResponse.ok) {
+          setError(sinAtencionData.mensaje || "No se pudieron cargar los dias sin atencion.");
+          return;
+        }
+
         setMascotas(mascotasData);
         setTurnosDisponibles(turnosData);
-      } catch (err) {
+        setDiasSinAtencion(sinAtencionData);
+      } catch {
         setError("No se pudo conectar con el servidor.");
       } finally {
         setLoading(false);
@@ -152,7 +170,7 @@ function PedirTurno() {
         });
       const data = await response.json();
       if (response.ok) setTurnosDisponibles(data);
-    } catch (err) {
+    } catch {
       setError("No se pudieron actualizar los horarios.");
     }
   };
@@ -235,7 +253,7 @@ function PedirTurno() {
       if (reprogramarTurnoId) {
         navigate("/mis-turnos");
       }
-    } catch (err) {
+    } catch {
       setError("No se pudo conectar con el servidor.");
     } finally {
       setLoading(false);
@@ -249,16 +267,22 @@ function PedirTurno() {
       <NavbarCliente />
 
       <main className="pedir-turno-main">
-        <CalendarGrid
-          currentMonth={currentMonth}
-          selectedDate={selectedDate}
-          dots={dots}
-          upcomingDays={upcomingDays}
-          onPrevMonth={handlePrevMonth}
-          onNextMonth={handleNextMonth}
-          onSelectDay={handleSelectDay}
-          onSelectUpcomingDay={handleSelectUpcomingDay}
-        />
+        <div className="pedir-turno-calendar">
+          <CalendarGrid
+            currentMonth={currentMonth}
+            selectedDate={selectedDate}
+            dots={dots}
+            upcomingDays={upcomingDays}
+            onPrevMonth={handlePrevMonth}
+            onNextMonth={handleNextMonth}
+            onSelectDay={handleSelectDay}
+            onSelectUpcomingDay={handleSelectUpcomingDay}
+          />
+          <div className="sin-atencion-help">
+            <span className="sin-atencion-dot" />
+            Dia sin atencion
+          </div>
+        </div>
 
         <form className="pedir-turno-panel" onSubmit={handleConfirmar}>
           <div>

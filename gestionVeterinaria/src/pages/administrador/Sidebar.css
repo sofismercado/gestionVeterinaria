@@ -85,6 +85,7 @@
 .dot-green  { background: #047857; }
 .dot-yellow { background: #E6B423; }
 .dot-red    { background: #D94A3A; }
+.dot-gray { background: #94A3B8; }
  
 /* ── Tablet: sidebar más compacto ── */
 @media (max-width: 900px) {
