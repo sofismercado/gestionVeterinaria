@@ -8,7 +8,7 @@ async function listarTurnos(req, res) {
       where.estado = req.query.estado;
     }
 
-    if (req.user.rol === "cliente" && req.query.estado !== "disponible") {
+    if (req.user.rol === "cliente" && !["disponible", "sin_atencion"].includes(req.query.estado)) {
       where.clienteId = req.user.id;
     }
 
