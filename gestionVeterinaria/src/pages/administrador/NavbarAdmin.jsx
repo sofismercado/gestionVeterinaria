@@ -11,8 +11,8 @@ const NavbarAdmin = () => {
   };
 
   return (
-    <header className="navbar">
-      <h1>🐾 {user?.nombre}</h1>
+    <header className="navbar navbar-admin-home">
+      <h1> 🐾Hola, {user?.nombre}</h1>
       <nav className="navbar-links">
         
         <button className="boton-secundario" onClick={handleLogout}>

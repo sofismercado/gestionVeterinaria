@@ -22,8 +22,7 @@ function HomeSuperadministrador() {
     <div className="contenedor-padre">
       <header className="navbar">
         <div>
-          <h1>Panel Super Admin</h1>
-          <p className="super-subtitle">{user?.nombre}</p>
+          <h1>🐾Hola, {user?.nombre}</h1>
         </div>
         <button className="boton-secundario" onClick={handleLogout}>
           Cerrar sesion

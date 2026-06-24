@@ -128,6 +128,11 @@ body,
   margin-bottom: 50px;
 }
 
+.navbar-admin-home {
+  max-width: 1040px;
+  margin: 0 auto 50px;
+}
+
 .navbar-links {
   display: flex;
   gap: 10px;

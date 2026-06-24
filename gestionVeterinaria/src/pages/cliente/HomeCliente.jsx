@@ -109,7 +109,6 @@ function HomeCliente() {
     <div className="contenedor-padre">
       <header className="home-cliente-header">
         <div>
-          <p className="home-cliente-subtitle">Panel del cliente</p>
           <h1>🐾Hola, {user?.nombre || "cliente"}</h1>
         </div>
         <button className="home-logout-btn" type="button" onClick={handleLogout}>
